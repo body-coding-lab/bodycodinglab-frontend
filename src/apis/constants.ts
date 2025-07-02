@@ -10,7 +10,6 @@ const ADMIN_API = `${API_BASE}/admins`;
 const FILE_API = `${API_BASE}/files`;
 const TRAINER_ONE_DAY_TICKET_API = `${TRAINER_API}/me/one-day-tickets`;
 const MEMBER_ONE_DAY_TICKET_API = `${MEMBER_API}/me/one-day-tickets`;
-const BOARD_COMMENT_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 const MEMBER_COUPON_API = `${MEMBER_API}/me/coupons`;
 const TRAINER_COUPON_API = `${TRAINER_API}/me/coupons`;
 const NOTE_API = `${API_BASE}/notes`;
