@@ -3,17 +3,39 @@ const API_DOMAIN = import.meta.env.REACT_APP_DOMAIN || "http://localhost:8080";
 const API_BASE = `${API_DOMAIN}/api/v2`;
 const AUTH_API = `${API_BASE}/auth`;
 const USER_API = `${API_BASE}/users`;
+const MY_INFO_API = `${USER_API}/me`;
+const MEMBER_MY_INFO_API = `${USER_API}/members/me`;
+const TRAINER_MY_INFO_API = `${USER_API}/trainers/me`;
+const PROFILE_IMAGE_API = `${MY_INFO_API}/profile-image`;
 const MEMBER_API = `${API_BASE}/members`
 const TRAINER_API = `${API_BASE}/trainers`;
+const TRAINER_INFO_MODULE = `${TRAINER_API}/me`;
 const COMMON_API = `${API_BASE}/common`;
 const ADMIN_API = `${API_BASE}/admins`;
 const FILE_API = `${API_BASE}/files`;
-const TRAINER_ONE_DAY_TICKET_API = `${TRAINER_API}/me/one-day-tickets`;
 const MEMBER_ONE_DAY_TICKET_API = `${MEMBER_API}/me/one-day-tickets`;
+const TRAINER_ONE_DAY_TICKET_API = `${TRAINER_API}/me/one-day-tickets`;
 const BOARD_API = `${API_BASE}/boards`;
-const BOARD_COMMENT_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 
-const TRAINER_INFO_MODULE = `${TRAINER_API}/me`;
+export const SIGNUP_MEMBER_API = `${AUTH_API}/signup/member`;
+export const SIGNUP_TRAINER_API = `${AUTH_API}/signup/trainer`;
+export const LOGIN_API = `${AUTH_API}/login`;
+export const USERNAME_RECOVERY_API = `${AUTH_API}/username/recovery`;
+export const PASSWORD_RESET_USER_API = `${AUTH_API}/password/reset-user`;
+export const PASSWORD_RESET_API = `${AUTH_API}/password/reset`;
+export const PASSWORD_RESET_EMAIL_API = `${AUTH_API}/password/reset-email`;
+export const EMAIL_VERIFY_API = `${AUTH_API}/email/verify`;
+export const GET_ALL_TRAINERS_API = `${ADMIN_API}/trainers`;
+export const GET_TRAINER_DETAIL_API = (trainerId: number) => `${GET_ALL_TRAINERS_API}/${trainerId}`;
+export const UPDATE_TRAINER_STATUS_API = (trainerId: number) => `${GET_ALL_TRAINERS_API}/${trainerId}/status`;
+export const GET_USER_INFO_API = MY_INFO_API;
+export const GET_MEMBER_INFO_API = MEMBER_MY_INFO_API;
+export const PUT_MEMBER_INFO_API = MEMBER_MY_INFO_API;
+export const GET_TRAINER_INFO_API = TRAINER_MY_INFO_API;
+export const PUT_TRAINER_INFO_API = TRAINER_MY_INFO_API;
+export const DELETE_USER_API = MY_INFO_API;
+export const PUT_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
+export const DELETE_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 
 export const PUT_TRIANER_INFO = `${TRAINER_INFO_MODULE}`;
 
@@ -49,6 +71,16 @@ export const DELETE_POST = (matchId: number, postId: number) => `${BOARD_API}/${
 export const GET_POST_DETAIL = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_LIST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const SEARCH_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
+export const GET_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
+export const CREATE_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
+export const UPDATE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;
+export const DELETE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;
+
+export const GET_MEMBER_ALL_TICKETS_API = MEMBER_ONE_DAY_TICKET_API;
+export const GET_TRAINER_ALL_TICKETS_API = TRAINER_ONE_DAY_TICKET_API;
+export const ISSUE_TICKET_API = `${TRAINER_ONE_DAY_TICKET_API}/issued`;
+export const USE_TICKET_API = (ticketId: number) => `${TRAINER_ONE_DAY_TICKET_API}/${ticketId}/used`;
+export const CANCEL_TICKET_API = (ticketId: number) => `${TRAINER_ONE_DAY_TICKET_API}/${ticketId}/canceled`;
 
 export const MEMBER_COUPON_API = `${MEMBER_API}/me/coupons`;
 export const TRAINER_COUPON_API = `${TRAINER_API}/me/coupons`;
