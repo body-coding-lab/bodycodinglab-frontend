@@ -1,4 +1,4 @@
-export interface TrainerDetailResponseDto {
+export interface BoardListResponseDto {
   boardId: number;
   matchId: number;
   category: string;

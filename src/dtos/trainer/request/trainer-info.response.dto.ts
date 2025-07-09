@@ -1,4 +1,4 @@
-export interface TrainerInfofRequsetDto {
+export interface TrainerInfofRequestDto {
   id?: number;
   jobAddress: string;
   shortIntroduce: string;

@@ -37,25 +37,25 @@ export const DELETE_USER_API = MY_INFO_API;
 export const PUT_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 export const DELETE_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 
-export const PUT_TRIANER_INFO = `${TRAINER_INFO_MODULE}`;
+export const PUT_TRAINER_INFO = `${TRAINER_INFO_MODULE}`;
 
-export const POST_TRIANER_CAREER = `${TRAINER_INFO_MODULE}/careers`;
-export const UPDATE_TRIANER_CAREER = (careerId: number) => `${TRAINER_INFO_MODULE}/careers/${careerId}`;
-export const DELETE_TRIANER_CAREER = (careerId: number) => `${TRAINER_INFO_MODULE}/careers/${careerId}`;
-export const DELETE_ALL_TRIANER_CAREER = `${TRAINER_INFO_MODULE}/careers`;
-export const GET_TRIANER_ALL_CAREER = `${TRAINER_INFO_MODULE}/careers`;
-export const GET_TRIANER_CAREER_RECENT = `${TRAINER_INFO_MODULE}/careers/recent`;
+export const POST_TRAINER_CAREER = `${TRAINER_INFO_MODULE}/careers`;
+export const UPDATE_TRAINER_CAREER = (careerId: number) => `${TRAINER_INFO_MODULE}/careers/${careerId}`;
+export const DELETE_TRAINER_CAREER = (careerId: number) => `${TRAINER_INFO_MODULE}/careers/${careerId}`;
+export const DELETE_ALL_TRAINER_CAREER = `${TRAINER_INFO_MODULE}/careers`;
+export const GET_TRAINER_ALL_CAREER = `${TRAINER_INFO_MODULE}/careers`;
+export const GET_TRAINER_CAREER_RECENT = `${TRAINER_INFO_MODULE}/careers/recent`;
 
-export const POST_TRIANER_LICENSE = `${TRAINER_INFO_MODULE}/licenses`;
-export const UPDATE_TRIANER_LICENSE = (licenseId: number) => `${TRAINER_INFO_MODULE}/licenses/${licenseId}`;
-export const DELETE_TRIANER_LICENSE = (licenseId: number) => `${TRAINER_INFO_MODULE}/licenses/${licenseId}`;
-export const DELETE_ALL_TRIANER_LICENSE = `${TRAINER_INFO_MODULE}/licenses`;
-export const GET_TRIANER_ALL_LICENSE = `${TRAINER_INFO_MODULE}/licenses`;
-export const GET_TRIANER_LICENSE_RECENT = `${TRAINER_INFO_MODULE}/licenses`;
+export const POST_TRAINER_LICENSE = `${TRAINER_INFO_MODULE}/licenses`;
+export const UPDATE_TRAINER_LICENSE = (licenseId: number) => `${TRAINER_INFO_MODULE}/licenses/${licenseId}`;
+export const DELETE_TRAINER_LICENSE = (licenseId: number) => `${TRAINER_INFO_MODULE}/licenses/${licenseId}`;
+export const DELETE_ALL_TRAINER_LICENSE = `${TRAINER_INFO_MODULE}/licenses`;
+export const GET_TRAINER_ALL_LICENSE = `${TRAINER_INFO_MODULE}/licenses`;
+export const GET_TRAINER_LICENSE_RECENT = `${TRAINER_INFO_MODULE}/licenses`;
 
-export const GET_TRIANER_CAREER = `${COMMON_API}/careers`;
-export const GET_TRIANER_LICENSE = `${COMMON_API}/licenses`;
-export const GET_ALL_TRIANER_INFO = `${COMMON_API}/trainers`;
+export const GET_TRAINER_CAREER = `${COMMON_API}/careers`;
+export const GET_TRAINER_LICENSE = `${COMMON_API}/licenses`;
+export const GET_ALL_TRAINER_INFO = `${COMMON_API}/trainers`;
 export const GET_TRAINER_INFO = (trainerId: number) => `${COMMON_API}/${trainerId}`;
 export const GET_TRAINER_BY_NAME = `${COMMON_API}/search-name`;
 export const GET_TRAINER_BY_ADDRESS = `${COMMON_API}/search-address`;
@@ -65,7 +65,7 @@ export const GET_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_SINGLE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
 export const DELETE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
 
-export const POST_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
+export const CREATE_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const UPDATE_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const DELETE_POST = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_DETAIL = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
