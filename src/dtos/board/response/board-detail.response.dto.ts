@@ -1,6 +1,6 @@
 import { FileResponseDto } from "@/dtos/file.response.dto";
 
-export interface TrainerDetailResponseDto {
+export interface BoardDetailResponseDto {
   boardId: number;
   matchId: number;
   writerId: number;

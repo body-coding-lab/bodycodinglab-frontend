@@ -1,4 +1,4 @@
-export interface TrainerCareerRequsetDto {
+export interface TrainerCareerRequestDto {
   companyName: string;
   companyJoin: string;
   companyQuit: string;
