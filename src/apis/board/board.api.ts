@@ -5,6 +5,7 @@ import { CREATE_POST, DELETE_POST, GET_POST_DETAIL, GET_POST_LIST, SEARCH_POST, 
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { AxiosError } from "axios";
 import { BoardListResponseDto } from "@/dtos/board/response/board-list.response.dto";
+import PageDto from "@/dtos/page.dto";
 
 const convertToFormData = (dto: BoardRequestDto): FormData => {
   const formData = new FormData();
@@ -72,7 +73,7 @@ export const getPost = async (matchId: number, postId: number, accessToken: stri
     }
 }
 
-export const getPostList = async (matchId: number, accessToken: string, page = 0, size = 10): Promise<ResponseDto<Page<BoardListResponseDto>>> => {
+export const getPostList = async (matchId: number, accessToken: string, page = 0, size = 10): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
   try{
       const response = await axiosInstance.get(GET_POST_LIST(matchId), {
         ...bearerAuthorization(accessToken),
@@ -84,7 +85,7 @@ export const getPostList = async (matchId: number, accessToken: string, page = 0
     }
 }
 
-export const searchPost = async (matchId: number, accessToken: string, params: searchPostParams): Promise<ResponseDto<Page<BoardListResponseDto>>> => {
+export const searchPost = async (matchId: number, accessToken: string, params: searchPostParams): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
   try{
       const response = await axiosInstance.get(SEARCH_POST(matchId), {
         ...bearerAuthorization(accessToken),
