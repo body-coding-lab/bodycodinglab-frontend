@@ -22,22 +22,23 @@ export const SIGNUP_TRAINER_API = `${AUTH_API}/signup/trainer`;
 export const LOGIN_API = `${AUTH_API}/login`;
 export const USERNAME_RECOVERY_API = `${AUTH_API}/username/recovery`;
 export const PASSWORD_RESET_USER_API = `${AUTH_API}/password/reset-user`;
-export const PASSWORD_RESET_API = `${AUTH_API}/password/reset`;
+export const PASSWORD_RESET_API = (token: string) => `${AUTH_API}/password/reset?token=${token}`;
 export const PASSWORD_RESET_EMAIL_API = `${AUTH_API}/password/reset-email`;
-export const EMAIL_VERIFY_API = `${AUTH_API}/email/verify`;
+export const EMAIL_VERIFY_API = (token: string) => `${AUTH_API}/email/verify?token=${token}`;
 export const GET_ALL_TRAINERS_API = `${ADMIN_API}/trainers`;
 export const GET_TRAINER_DETAIL_API = (trainerId: number) => `${GET_ALL_TRAINERS_API}/${trainerId}`;
 export const UPDATE_TRAINER_STATUS_API = (trainerId: number) => `${GET_ALL_TRAINERS_API}/${trainerId}/status`;
 export const GET_USER_INFO_API = MY_INFO_API;
 export const GET_MEMBER_INFO_API = MEMBER_MY_INFO_API;
-export const PUT_MEMBER_INFO_API = MEMBER_MY_INFO_API;
+export const UPDATE_MEMBER_INFO_API = MEMBER_MY_INFO_API;
 export const GET_TRAINER_INFO_API = TRAINER_MY_INFO_API;
-export const PUT_TRAINER_INFO_API = TRAINER_MY_INFO_API;
+export const UPDATE_TRAINER_INFO_API = TRAINER_MY_INFO_API;
 export const DELETE_USER_API = MY_INFO_API;
-export const PUT_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
+export const UPDATE_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 export const DELETE_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 
 export const PUT_TRIANER_INFO = `${TRAINER_INFO_MODULE}`;
+export const REAPPLY_TRAINER_API = `${TRAINER_INFO_MODULE}/reapply`;
 
 export const POST_TRIANER_CAREER = `${TRAINER_INFO_MODULE}/careers`;
 export const UPDATE_TRIANER_CAREER = (careerId: number) => `${TRAINER_INFO_MODULE}/careers/${careerId}`;
