@@ -89,19 +89,30 @@ export const GET_MEMBER_COUPON_API = (status: string) => `${MEMBER_COUPON_API}?s
 export const GET_TRAINER_COUPON_API = (status: string) => `${TRAINER_COUPON_API}?status=${status}`;
 export const PUT_MEMBER_COUPON_API = (couponId: number) => `${MEMBER_COUPON_API}/${couponId}`;
 export const PUT_TRAINER_COUPON_API = (couponId: number) => `${TRAINER_COUPON_API}/${couponId}`
+
 export const NOTE_API = `${API_BASE}/notes`;
+export const GET_ALL_NOTE_API = (page: number, size: number )=>`${NOTE_API}?page${page}&size=${size}`;
+export const FIND_BY_NOTE_ID_API = (noteId: number) => `${NOTE_API}/${noteId}`;
+export const GET_RECEIVED_NOTE_API =(page: number, size: number) => `${NOTE_API}/received?page=${page}&size=${size}`;
+export const GET_SENT_NOTE_API = (page: number, size: number) => `${NOTE_API}/sent?page=${page}&size=${size}`;
+
+
 export const MEMBER_FORM_API = `${MEMBER_API}/me/form`;
+
 export const MATCH_WAITING_LIST_API = (trainerId: number) => `${MEMBER_API}/me/match_waiting-list/${trainerId}`;
 export const MEMBER_MATCH_WAITING_LIST_API = `${MEMBER_API}/me/match-waiting-list`;
 export const TRAINER_MATCH_WAITING_LIST_API = `${TRAINER_API}/me/match-waiting-list`;
 export const PUT_APPROVE_TRAINER_MATCH_WAITING_LIST_API = (matchWaitingListId: number) => `${TRAINER_MATCH_WAITING_LIST_API}/${matchWaitingListId}/approves`;
 export const PUT_REJECT_TRAINER_MATCH_WAITING_LIST_API = (matchWaitingListId: number) => `${TRAINER_MATCH_WAITING_LIST_API}/${matchWaitingListId}/rejects`
 export const DELETE_CANCEL_MEMBER_MATCH_WAITING_LIST_API = (matchWaitingListId: number) => `${MEMBER_MATCH_WAITING_LIST_API}/${matchWaitingListId}`;
+
 export const MEMBER_MATCH_API = `${MEMBER_API}/me/match-list`;
 export const TRAINER_MATCH_API = `${TRAINER_API}/me/match-list`;
 export const TRAINER_FIND_MEMBER_MATCH_API = (matchId: number) => `${TRAINER_MATCH_API}/${matchId}`;
 export const DELETE_MEMBER_MATCH_API = (matchId: number) => `${MEMBER_MATCH_API}/${matchId}`;
+
 export const MEMBER_SUBSCRIPTION_API = `${MEMBER_API}/me/subscription`;
 export const PAYMENT_API = `${MEMBER_API}/me/payment`;
+
 
 
