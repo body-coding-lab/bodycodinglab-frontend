@@ -1,0 +1,197 @@
+/** @jsxImportsource @emorion/react */
+import {css} from '@emotion/react'; 
+
+export const body = css`
+    width: 1140px;//90%
+    margin: auto;
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-start;
+`
+
+export const left = css`
+    margin-top: 50px;
+`
+
+export const right = css`
+    margin-top: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+`
+
+export const headwrap = css`
+    width: 90%;
+` 
+
+export const head = css`
+    width: 90%;
+    margin-right: auto;
+    color: #437Bc0;
+    margin-bottom: 3px;
+`
+
+export const rightTop = css`
+    display: flex;
+    width: 90%;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+`
+
+export const search = css`
+    flex-grow: 1;
+    min-width: 0;
+    height: 60px;
+    border: 3px solid #C6CEE0;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 40px;
+    align-items: center;
+    box-sizing: border-box;
+`
+
+export const searchInput = css`
+    width: 100%;
+    height: 60px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 30px;
+    line-height: 60px;
+`
+
+export const searchBtn = css`
+    height: 50px;
+    width: 90px;
+    font-size: 24px;
+    color: white;
+    padding: 0;
+    margin: 3px;
+    background-color: #75A7EF;
+    border: 2px solid white;
+    border-radius: 35px;
+    box-sizing: border-box;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+`
+
+export const writeBtn = css`
+    height: 57px;
+    width: 92px;
+    font-size: 24px;
+    color: white;
+    line-height: 60px;
+    background-color: #75A7EF;
+    border: none;
+    border-radius: 35px;
+    box-sizing: border-box;
+    cursor: pointer;
+`
+
+export const loading = css`
+    font-size: 30px;
+`
+
+export const board = css`
+    margin-top: 5%;
+    width: 90%;
+    height: 500px;
+    margin: auto;
+    border: 3px solid #C5CEE0;
+    border-radius: 10px 10px 0 0;
+`
+
+export const spanHead = css`
+    color: #3F4756;
+    border-bottom: 2px solid #C5CEE0;
+`
+
+export const post = css`
+    cursor: pointer;
+`
+
+export const spans = css`
+    color: #3F4756;
+    border-bottom: 1px solid #ccc;
+
+    :hover{
+        background-color: #ccc;
+        color: white;
+    }
+`
+
+export const postIdSpan = css`
+    margin-left: 10px;
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    width: 10%;
+`
+
+export const postTitleSpan = css`
+    margin-left: 10px;
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    width: 60%;
+`
+
+export const postWriterSpan = css`
+    margin-left: 10px;
+    display: inline-block;
+    border-right: 1px solid #ccc;
+    width: 10%;
+`
+
+export const postDateSpan = css`
+    margin-left: 10px;
+    display: inline-block;
+    width: 10%;
+`
+
+export const boardBottom = css`
+    width: 90%;
+    height: 30px;
+    text-align: center;
+    border: 3px solid #CECEE0;
+    border-top: 0px;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1px;
+`
+
+export const pageTextBtn = css`
+    width: 20px;
+    height: 30px;
+    border: none;
+    background: none;
+    color: #3F4756;
+    font-size: 18px;
+    line-height: 30px;
+    cursor: pointer;
+
+    :hover{
+        background-color: #C5CEE0;
+    }
+`
+
+export const pageNumBtn = css`
+    width: 20px;
+    height: 30px;
+    border: none;
+    background: none;
+    font-size: 18px;
+    line-height: 30px;
+    color: #3F4756;
+    cursor: pointer;
+
+    :hover{
+        background-color: #C5CEE0;
+    }
+`
