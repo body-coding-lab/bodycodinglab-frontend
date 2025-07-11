@@ -4,8 +4,9 @@ import { LOGIN_API } from "../constants";
 import { AxiosError } from "axios";
 import { LoginUserRequestDto } from "@/dtos/auth/request/login.request.dto";
 import { LoginUserResponseDto } from "@/dtos/auth/response/login-user.response.dto";
+import { LoginRejectedTrainerResponseDto } from "@/dtos/auth/response/login-rejected-trainer.response.dto";
 
-export const loginRequest = async (dto: LoginUserRequestDto): Promise<ResponseDto<LoginUserResponseDto>> => {
+export const loginRequest = async (dto: LoginUserRequestDto): Promise<ResponseDto<LoginUserResponseDto | LoginRejectedTrainerResponseDto>> => {
   try {
     const response = await axiosInstance.post(
       LOGIN_API,

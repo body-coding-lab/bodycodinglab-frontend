@@ -1,4 +1,3 @@
-import { GetTrainerDetailResponseDto } from "@/dtos/admin/response/get-trainer-detail.response.dto";
 import ResponseDto from "@/dtos/response.dto";
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { UPDATE_TRAINER_STATUS_API } from "../constants";
@@ -9,7 +8,7 @@ export const updateTrainerStatusRequest = async (
   trainerId: number,
   requestBody: UpdateTrainerStatusRequestDto,
   accessToken: string
-): Promise<ResponseDto<GetTrainerDetailResponseDto>> => {
+): Promise<ResponseDto<void>> => {
   try {
     const response = await axiosInstance.post(
       UPDATE_TRAINER_STATUS_API(trainerId),

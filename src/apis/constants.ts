@@ -61,6 +61,7 @@ export const GET_TRAINER_INFO = (trainerId: number) => `${COMMON_API}/${trainerI
 export const GET_TRAINER_BY_NAME = `${COMMON_API}/search-name`;
 export const GET_TRAINER_BY_ADDRESS = `${COMMON_API}/search-address`;
 
+export const SINGLE_FILE = (fileId: number) => `${FILE_API}/single/${fileId}`
 export const UPLOAD_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_SINGLE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
