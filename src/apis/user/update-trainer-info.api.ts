@@ -3,9 +3,8 @@ import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSucce
 import { UPDATE_TRAINER_INFO_API } from "../constants";
 import { AxiosError } from "axios";
 import { UpdateTrainerInfoRequestDto } from "@/dtos/user/request/update-trainer-info.request.dto";
-import { GetTrainerInfoResponseDto } from "@/dtos/user/response/get-trainer-info.response.dto";
 
-export const updateTrainerInfoRequest = async (dto: UpdateTrainerInfoRequestDto, accessToken: string): Promise<ResponseDto<GetTrainerInfoResponseDto>> => {
+export const updateTrainerInfoRequest = async (dto: UpdateTrainerInfoRequestDto, accessToken: string): Promise<ResponseDto<void>> => {
   try {
     const response = await axiosInstance.put(
       UPDATE_TRAINER_INFO_API,
