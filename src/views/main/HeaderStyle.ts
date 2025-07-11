@@ -1,9 +1,9 @@
-/** @jsxImportSource @emorion/react */
-import { css } from '@emotion/react';
+/** @jsxImportsource @emorion/react */
+import {css} from '@emotion/react';
 
 export const headerStyle = css`
     width: 100%;
-    height: 100px;
+    height: 80px;
     margin-right: 15px;
     background-color: white;
     border-bottom: 3px solid #437bc0;
@@ -11,7 +11,7 @@ export const headerStyle = css`
 `;
 
 export const header = css`
-    width: 60%;
+    width: 70%;
     margin: auto;
     display: flex;
     justify-content: space-between;
@@ -19,7 +19,7 @@ export const header = css`
 
 export const logoStyle = css`
     width: 200px;
-    height: 100px;
+    height: 80px;
     background-image: url("/fitmatelogo.png");
     background-size: cover;
     background-position: center;
@@ -42,7 +42,7 @@ export const headerNavDivs = css`
 `
 export const loginStyle = css`
     width: 250px;
-    height: 100px;
+    height: 80px;
     font-size: 20px;
     display: flex;
     justify-content: space-between;
