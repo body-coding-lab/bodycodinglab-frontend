@@ -73,7 +73,6 @@ export const DELETE_POST = (matchId: number, postId: number) => `${BOARD_API}/${
 export const GET_POST_DETAIL = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_LIST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const SEARCH_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
-export const GET_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 export const CREATE_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 export const UPDATE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;
 export const DELETE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;
