@@ -1,3 +1,4 @@
+import { GetCommentResponseDto } from "@/dtos/comment/response/get-comment.response.dto";
 import { FileResponseDto } from "@/dtos/file.response.dto";
 
 export interface BoardDetailResponseDto {
@@ -13,4 +14,5 @@ export interface BoardDetailResponseDto {
   createdAt: string;
   updatedAt: string;
   boardImages?: FileResponseDto[];
+  comments?: GetCommentResponseDto[];
 }
