@@ -268,7 +268,7 @@ export const postFooter = css`
     border-bottom: none;
 `
 
-export const Footer = css`
+export const footer = css`
     margin-right: auto;
     display: flex;
     font-size: 20px;
