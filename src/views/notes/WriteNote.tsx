@@ -1,0 +1,112 @@
+/** @jsxImportSource @emotion/react */
+import { useNavigate, useSearchParams } from "react-router-dom";
+import * as s from "./NoteListStyle";
+import React, { useEffect, useState } from 'react'
+
+function WriteNote() {
+    const [searchParams] = useSearchParams();
+    const [receiver, setReceiver] = useState<number | null>(null);
+    const [receiverInput, setReceiverInput] = useState<string>('');
+    const [noteText, setNoteText] = useState('');
+    const navigate = useNavigate();
+    const [userMap, setUserMap] = useState<Record<number, string>>({});
+    const [profileImageMap, setProfileImageMap] = useState<Record<number, string>>({});
+    const handleCheckId = async () => {
+        const id = Number(receiverInput);
+        if(!id || isNaN(id)){
+            alert("올바른 숫자 ID를 입력해주세요.")
+            return;
+        }
+        const currentUserId = getUserIdFromToken();
+        if(id === currentUserId){
+            alert("자기 자신에게는 쪽지를 보낼 수 없습니다.");
+            return;
+        }
+        try{
+            const map = await fetchUsernames([id]);
+            const username = map[id];
+            if(username){
+                setReceiver(id);
+                setUserMap(prev => ({...prev,[id]: username}));
+
+                const profileUrls = await fetchProfileImageUrls([id]);
+                setProfileImageMap(prev => ({...prev, ...profileUrls}));
+            } else{
+                alert("존재하지 않는 사용자입니다.");
+            }
+        } catch(error){
+            alert("ID 확인 중 오류가 발생했습니다.");
+        }
+    };
+
+    useEffect(() => {
+        const receive = searchParams.get("receiver");
+        if(receive){
+            setReceiver(Number(receive));
+            setReceiverInput(receive);
+        }
+    }, [searchParams]);
+
+    const handleSend = async () => {
+        const receiverId = receiver ?? Number(receiverInput);
+        if(!receiverId || isNaN(receiverId)){
+            alert("받는 사람 ID의 값이 잘못되었습니다.");
+            return;
+        }
+        if(!noteText.trim()){
+            alert("쪽지 내용을 입력해주세요.");
+            return
+        }
+        try{
+            const token = getAccessTokenFromCookie();
+            if(!token)throw new Error("토큰이 없습니다.");
+
+            await WriteNote(noteText, receiverId, token);
+
+            alert("쪽지가 성공적으로 전송되었습니다.");
+            navigate('/notes/sent');
+        } catch(error){
+            alert("쪽지 전송 중 오류가 발생했습니다.");
+        }
+    };
+
+  return (
+    <div>
+        <div css={s.titleWrap}>
+            <h3 css={s.title}>쪽지 보내기</h3>
+        </div>
+        <div css={s.noteWriteWrap}>
+            <div css={s.profile}>
+                <img 
+                    src={receiver !== null ? (profileImageMap[receiver] || "/default-profile.png") : "/default-profile.png"} 
+                    alt="프로필 이미지"
+                    onError={(e) => {e.currentTarget.src = "/default-profile.png"}} 
+                />
+                {receiver !== null ? (
+                    <span css={s.profileSpan}>보낼 사람: {userMap[receiver] ?? `${receiver}`}</span>
+                ) : (
+                    <div>
+                        <input 
+                            css={s.profileSpan}
+                            type="text" 
+                            placeholder="받는 사람 ID를 입력해주세요."
+                            value={receiverInput}
+                            onChange={(e) => setReceiverInput(e.target.value)}
+                        />
+                        <button css={s.profileBtn} onClick={handleCheckId}>ID 확인</button>
+                    </div>
+                )}
+            </div>
+            <textarea 
+                css={s.noteText}
+                placeholder="쪽지 내용을 입력해주세요."
+                value={noteText}
+                onChange={(e) => setNoteText(e.target.value)}
+            />
+            <button css={s.sendBtn} onClick={handleSend}>보내기</button>
+        </div>
+    </div>
+  );
+}
+
+export default WriteNote
