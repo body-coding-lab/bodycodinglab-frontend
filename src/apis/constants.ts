@@ -37,7 +37,7 @@ export const DELETE_USER_API = MY_INFO_API;
 export const UPDATE_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 export const DELETE_PROFILE_IMAGE_API = PROFILE_IMAGE_API;
 
-export const PUT_TRIANER_INFO = `${TRAINER_INFO_MODULE}`;
+export const PUT_TRAINER_INFO = `${TRAINER_INFO_MODULE}`;
 export const REAPPLY_TRAINER_API = `${TRAINER_INFO_MODULE}/reapply`;
 
 export const POST_TRAINER_CAREER = `${TRAINER_INFO_MODULE}/careers`;
@@ -64,14 +64,16 @@ export const GET_TRAINER_BY_ADDRESS = `${COMMON_API}/search-address`;
 export const UPLOAD_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_SINGLE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
-export const DELETE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
+export const DELETE_FILE = (fileId: number) => `${FILE_API}/${fileId}`;
 
 export const CREATE_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const UPDATE_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const DELETE_POST = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_DETAIL = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_LIST = (matchId: number) => `${BOARD_API}/${matchId}`;
-export const SEARCH_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
+export const SEARCH_POST_BY_NAME = (matchId: number) => `${BOARD_API}/${matchId}/search-name`;
+export const SEARCH_POST_BY_TITLE = (matchId: number) => `${BOARD_API}/${matchId}/search-title`;
+export const SEARCH_POST_BY_CONTENT = (matchId: number) => `${BOARD_API}/${matchId}/search-content`;
 export const GET_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 export const CREATE_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 export const UPDATE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;

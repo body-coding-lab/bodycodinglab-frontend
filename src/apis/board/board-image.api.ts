@@ -1,12 +1,12 @@
-import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "@/apis/axiosConfig";
-import { DELETE_FILE, GET_MULTI_FILES, UPLOAD_MULTI_FILES } from "@/apis/constants";
 import { FileResponseDto } from "@/dtos/file.response.dto";
 import ResponseDto from "@/dtos/response.dto";
+import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
+import { DELETE_FILE, GET_MULTI_FILES, UPLOAD_MULTI_FILES } from "../constants";
 import { AxiosError } from "axios";
 
 export const uploadTrainerInfoImages = async (
   files: File[],
-  trainerId: number,
+  fileId: number,
   accessToken: string
 ): Promise<ResponseDto<FileResponseDto[]>> => {
   const formData = new FormData();
@@ -16,7 +16,7 @@ export const uploadTrainerInfoImages = async (
   });
 
   try {
-    const response = await axiosInstance.post(`${UPLOAD_MULTI_FILES}?targetId=${trainerId}&targetType=INFO`,
+    const response = await axiosInstance.post(`${UPLOAD_MULTI_FILES}?targetId=${fileId}&targetType=BOARD`,
       formData,{
         headers: {
           "Content-Type": "multipart/form-data",
@@ -47,13 +47,13 @@ export const deleteTrainerInfoImages = async (
 }
 
 export const getTrainerInfoImages = async (
-  trainerId: number,
+  fileId: number,
 ): Promise<ResponseDto<FileResponseDto[]>> => {
   try {
     const response = await axiosInstance.get(GET_MULTI_FILES, {
         params: {
-          targetId: trainerId,
-          targetType: "INFO",
+          targetId: fileId,
+          targetType: "BOARD",
         }
       });
     return responseSuccessHandler(response);
