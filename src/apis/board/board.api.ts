@@ -1,7 +1,7 @@
 import { BoardRequestDto } from "@/dtos/board/request/board.request.dto";
 import { BoardDetailResponseDto } from "@/dtos/board/response/board-detail.response.dto";
 import ResponseDto from "@/dtos/response.dto";
-import { CREATE_POST, DELETE_POST, GET_POST_DETAIL, GET_POST_LIST, SEARCH_POST, UPDATE_POST } from "../constants";
+import { CREATE_POST, DELETE_POST, GET_POST_DETAIL, GET_POST_LIST, SEARCH_POST_BY_CONTENT, SEARCH_POST_BY_NAME, SEARCH_POST_BY_TITLE, UPDATE_POST } from "../constants";
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { AxiosError } from "axios";
 import { BoardListResponseDto } from "@/dtos/board/response/board-list.response.dto";
@@ -85,11 +85,11 @@ export const getPostList = async (matchId: number, accessToken: string, page = 0
     }
 }
 
-export const searchPost = async (matchId: number, accessToken: string, params: searchPostParams): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+export const searchPostByName = async (matchId: number, accessToken: string, category: string, writerName: string): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
   try{
-      const response = await axiosInstance.get(SEARCH_POST(matchId), {
+      const response = await axiosInstance.get(SEARCH_POST_BY_NAME(matchId), {
         ...bearerAuthorization(accessToken),
-        params,
+        params: { category, writerName },
     });
       return responseSuccessHandler(response);
     } catch (error) {
@@ -97,11 +97,26 @@ export const searchPost = async (matchId: number, accessToken: string, params: s
     }
 }
 
-interface searchPostParams {
-  category: string;
-  writerName?: string;
-  title?: string;
-  content?: string;
-  page?: number;
-  size?: number;
+export const searchPostByTitle = async (matchId: number, accessToken: string, category: string, title: string): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+  try{
+      const response = await axiosInstance.get(SEARCH_POST_BY_TITLE(matchId), {
+        ...bearerAuthorization(accessToken),
+        params: { category, title },
+    });
+      return responseSuccessHandler(response);
+    } catch (error) {
+      return responseErrorHandler(error as AxiosError<ResponseDto>);
+    }
+}
+
+export const searchPostByContent = async (matchId: number, accessToken: string, category: string, content: string): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+  try{
+      const response = await axiosInstance.get(SEARCH_POST_BY_CONTENT(matchId), {
+        ...bearerAuthorization(accessToken),
+        params: { category, content },
+    });
+      return responseSuccessHandler(response);
+    } catch (error) {
+      return responseErrorHandler(error as AxiosError<ResponseDto>);
+    }
 }

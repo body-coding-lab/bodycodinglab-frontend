@@ -1,7 +1,7 @@
 import { FileResponseDto } from "@/dtos/file.response.dto";
 import ResponseDto from "@/dtos/response.dto";
 import { axiosInstance, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
-import { DELETE_MULTI_FILES, GET_MULTI_FILES, UPLOAD_MULTI_FILES } from "../constants";
+import { DELETE_FILE, GET_MULTI_FILES, UPLOAD_MULTI_FILES } from "../constants";
 import { AxiosError } from "axios";
 
 export const uploadTrainerLicenseImages = async (
@@ -34,7 +34,7 @@ export const deleteTrainerLicneseImages = async (
   accessToken: string
 ): Promise<ResponseDto<void>> => {
   try {
-    const response = await axiosInstance.delete(`${DELETE_MULTI_FILES}/${fileId}`,
+    const response = await axiosInstance.delete(`${DELETE_FILE}/${fileId}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
