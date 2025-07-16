@@ -4,6 +4,7 @@ import { TrainerLicenseResponseDto } from "@/dtos/trainer/response/trainer-licen
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { GET_TRAINER_LICENSE_RECENT, TRAINER_LICENSE, TRAINER_LICENSE_DETAIL } from "../constants";
 import { AxiosError } from "axios";
+import { TrainerLicenseDeatilResponseDto } from "@/dtos/trainer/response/trainer-license-detail.response.dto";
 
 const convertToFormData = (dto: TrainerLicenseRequestDto): FormData => {
   const formData = new FormData();
@@ -68,7 +69,7 @@ export const deleteAllLicense = async (accessToken: string): Promise<ResponseDto
   }
 }
 
-export const getCareerList = async (accessToken: string): Promise<ResponseDto<TrainerLicenseResponseDto[]>> => {
+export const getLicenseList = async (accessToken: string): Promise<ResponseDto<TrainerLicenseDeatilResponseDto[]>> => {
   try {
     const response = await axiosInstance.get(TRAINER_LICENSE, bearerAuthorization(accessToken));
     return responseSuccessHandler(response);
@@ -77,7 +78,7 @@ export const getCareerList = async (accessToken: string): Promise<ResponseDto<Tr
   }
 }
 
-export const getRecentCareer = async (accessToken: string): Promise<ResponseDto<TrainerLicenseResponseDto>> => {
+export const getRecentLicense = async (accessToken: string): Promise<ResponseDto<TrainerLicenseResponseDto>> => {
   try {
     const response = await axiosInstance.get(GET_TRAINER_LICENSE_RECENT, bearerAuthorization(accessToken));
     return responseSuccessHandler(response);

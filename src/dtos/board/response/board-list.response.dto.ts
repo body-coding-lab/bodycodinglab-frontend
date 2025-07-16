@@ -5,6 +5,5 @@ export interface BoardListResponseDto {
   title: string;
   writerName: string;
   viewCount: number;
-  likeCount: number;
   createdAt: string;
 }
