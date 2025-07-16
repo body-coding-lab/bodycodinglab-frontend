@@ -1,6 +1,6 @@
 import { FileResponseDto } from "@/dtos/file.response.dto";
 import { TrainerCareerResponseDto } from "./trainer-career.response.dto";
-import { TrainerLicenseResponseDto } from "./trainer-license.response.dto";
+import { TrainerLicenseDeatilResponseDto } from "./trainer-license-detail.response.dto";
 
 export interface TrainerDetailResponseDto {
   trainerId: number;
@@ -12,7 +12,7 @@ export interface TrainerDetailResponseDto {
   educationEntrance: string;
   educationGraduate: string;
   careers: TrainerCareerResponseDto[];
-  licenses: TrainerLicenseResponseDto[];
+  licenses: TrainerLicenseDeatilResponseDto[];
   profileImage: string;
   infoImages?: FileResponseDto[];
   licenseImages?: FileResponseDto[];

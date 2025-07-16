@@ -1,6 +1,6 @@
 import { FileResponseDto } from "@/dtos/file.response.dto";
 
-export interface TrainerLicenseResponseDto {
+export interface TrainerLicenseDeatilResponseDto {
   id: number;
   trainerId: number;
   licenseType: string;

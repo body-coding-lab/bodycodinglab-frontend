@@ -10,7 +10,6 @@ export interface BoardDetailResponseDto {
   content: string;
   writerName: string;
   viewCount: number;
-  likeCount: number;
   createdAt: string;
   updatedAt: string;
   boardImages?: FileResponseDto[];
