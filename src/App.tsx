@@ -9,6 +9,7 @@ import Layout from './views/main/Layout';
 import Board from './views/board/Board';
 import RedirectToUserMatch from './views/board/RedirectToUserMatch';
 import Post from './views/board/Post';
+import BoardTrainerPage from './views/board/BoardTrainerPage';
 
 function App() {
   const [cookies] = useCookies(['accessToken']);
@@ -34,6 +35,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path='/' element={<Main />} />
         <Route path='/personal-community-boards' element={<RedirectToUserMatch />} />
+        <Route path='/personal-community-boards/trainer' element={<BoardTrainerPage />} />
         <Route path='/personal-community-boards/:matchId/:categoryId/:postId' element={<Post />} />
         <Route path='/personal-community-boards/:matchId/:categoryId' element={<Board />} />
       </Route>

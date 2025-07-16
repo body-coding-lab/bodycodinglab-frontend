@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useParams } from "react-router-dom";
-import * as s from "./EditorWriteStyle";
+import * as s from "./WriteorEditStyle";
 import React, { useEffect, useState } from 'react'
 import BoardCategory from "./BoardCategory";
 function PostEdit() {
