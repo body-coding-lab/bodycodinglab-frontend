@@ -59,7 +59,7 @@ export const SINGLE_FILE = (fileId: number) => `${FILE_API}/single/${fileId}`
 export const UPLOAD_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_SINGLE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
-export const DELETE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
+export const DELETE_FILE = (fileId: number) => `${FILE_API}/${fileId}`;
 
 export const CREATE_POST = (matchId: number) => `${MATCH_API}/${matchId}`;
 export const POST_DETAIL = (matchId: number, postId: number) => `${MATCH_API}/${matchId}/posts/${postId}`;

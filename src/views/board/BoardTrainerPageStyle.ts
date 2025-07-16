@@ -1,4 +1,4 @@
-/** @jsxImportsource @emorion/react */
+/** @jsxImportSource @emotion/react */
 import {css} from '@emotion/react'; 
 
 export const body = css`
@@ -19,6 +19,13 @@ export const boardListWrap = css`
     gap: 10px 2%;
     align-items: flex-start;
     justify-content: space-between;
+`
+
+export const noMatch = css`
+    font-size: 24px;
+    margin: auto;
+    padding-top: 40px;
+    color: #3F4756;
 `
 
 export const boardList = css`

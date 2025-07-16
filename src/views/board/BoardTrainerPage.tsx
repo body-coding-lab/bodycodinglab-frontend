@@ -38,13 +38,11 @@ function BoardTrainerPage() {
     <div css={s.body}>
         <div css={s.boardListWrap}>
         {matchList.length === 0 ? (
-            <div css={s.boardList}>
-                <p>담당 중인 회원이 없습니다.</p>
-            </div>
+            <p css={s.noMatch}>담당 중인 회원이 없습니다.</p>
         ) : (
             matchList.map((match) => (
                 <div key={match.matchId} css={s.boardList}>
-                    <p>{match.memberId} | <strong>{match.memberName}</strong> ({match.memberAge}세 | {match.memberGender === 'MALE' ? '남' : '여'})</p>
+                    <p><strong>{match.memberName}이름</strong> ({match.memberAge}나이세 | {match.memberGender === 'MALE' ? '남' : '여'})</p>
                     <button onClick={() => handleSelect(match.matchId)}>게시판 입장</button>
                 </div>
                 ))
