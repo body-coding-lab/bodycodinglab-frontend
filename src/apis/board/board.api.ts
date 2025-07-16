@@ -1,7 +1,7 @@
 import { BoardRequestDto } from "@/dtos/board/request/board.request.dto";
 import { BoardDetailResponseDto } from "@/dtos/board/response/board-detail.response.dto";
 import ResponseDto from "@/dtos/response.dto";
-import { CREATE_POST, DELETE_POST, GET_POST_DETAIL, GET_POST_LIST, SEARCH_POST, UPDATE_POST } from "../constants";
+import { CREATE_POST, GET_POST_LIST, POST_DETAIL, SEARCH_POST_BY_CONTENT, SEARCH_POST_BY_NAME, SEARCH_POST_BY_TITLE } from "../constants";
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { AxiosError } from "axios";
 import { BoardListResponseDto } from "@/dtos/board/response/board-list.response.dto";
@@ -38,10 +38,10 @@ export const crestePost = async (matchId: number, dto: BoardRequestDto, accessTo
   }
 }
 
-export const updatePost = async (matchId: number, dto: BoardRequestDto, accessToken: string): Promise<ResponseDto<BoardDetailResponseDto>> => {
+export const updatePost = async (matchId: number, postId: number, dto: BoardRequestDto, accessToken: string): Promise<ResponseDto<BoardDetailResponseDto>> => {
   try{
       const formData = convertToFormData(dto);
-      const response = await axiosInstance.put(UPDATE_POST(matchId), formData, {
+      const response = await axiosInstance.put(POST_DETAIL(matchId, postId), formData, {
       headers: {
         ...bearerAuthorization(accessToken).headers,
         "Content-Type": "multipart/form-data",
@@ -55,7 +55,7 @@ export const updatePost = async (matchId: number, dto: BoardRequestDto, accessTo
 
 export const deletePost = async (matchId: number, postId: number, accessToken: string): Promise<ResponseDto<void>> => {
   try {
-    const response = await axiosInstance.delete(DELETE_POST(matchId, postId), bearerAuthorization(accessToken));
+    const response = await axiosInstance.delete(POST_DETAIL(matchId, postId), bearerAuthorization(accessToken));
     return responseSuccessHandler(response);
   } catch (error) {
     return responseErrorHandler(error as AxiosError<ResponseDto>);
@@ -64,7 +64,7 @@ export const deletePost = async (matchId: number, postId: number, accessToken: s
 
 export const getPost = async (matchId: number, postId: number, accessToken: string): Promise<ResponseDto<BoardDetailResponseDto>> => {
   try{
-      const response = await axiosInstance.get(GET_POST_DETAIL(matchId, postId), {
+      const response = await axiosInstance.get(POST_DETAIL(matchId, postId), {
         ...bearerAuthorization(accessToken)
     });
       return responseSuccessHandler(response);
@@ -85,11 +85,22 @@ export const getPostList = async (matchId: number, accessToken: string, page = 0
     }
 }
 
-export const searchPost = async (matchId: number, accessToken: string, params: searchPostParams): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+export const searchPostByName = async (
+  matchId: number,
+  accessToken: string,
+  category: string,
+  writerName?: string,
+  page: number = 0,
+  size: number = 10): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
   try{
-      const response = await axiosInstance.get(SEARCH_POST(matchId), {
+      const response = await axiosInstance.get(SEARCH_POST_BY_NAME(matchId), {
         ...bearerAuthorization(accessToken),
-        params,
+        params: {
+          category,
+          writerName,
+          page,
+          size,
+        }
     });
       return responseSuccessHandler(response);
     } catch (error) {
@@ -97,11 +108,48 @@ export const searchPost = async (matchId: number, accessToken: string, params: s
     }
 }
 
-interface searchPostParams {
-  category: string;
-  writerName?: string;
-  title?: string;
-  content?: string;
-  page?: number;
-  size?: number;
+export const searchPostByContent = async (
+  matchId: number,
+  accessToken: string,
+  category: string,
+  content?: string,
+  page: number = 0,
+  size: number = 10): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+  try{
+      const response = await axiosInstance.get(SEARCH_POST_BY_CONTENT(matchId), {
+        ...bearerAuthorization(accessToken),
+        params: {
+          category,
+          content,
+          page,
+          size,
+        }
+    });
+      return responseSuccessHandler(response);
+    } catch (error) {
+      return responseErrorHandler(error as AxiosError<ResponseDto>);
+    }
+}
+
+export const searchPostByTitle = async (
+  matchId: number,
+  accessToken: string,
+  category: string,
+  title?: string,
+  page: number = 0,
+  size: number = 10): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+  try{
+      const response = await axiosInstance.get(SEARCH_POST_BY_TITLE(matchId), {
+        ...bearerAuthorization(accessToken),
+        params: {
+          category,
+          title,
+          page,
+          size,
+        }
+    });
+      return responseSuccessHandler(response);
+    } catch (error) {
+      return responseErrorHandler(error as AxiosError<ResponseDto>);
+    }
 }
