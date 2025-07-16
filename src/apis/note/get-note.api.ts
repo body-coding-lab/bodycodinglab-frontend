@@ -1,9 +1,9 @@
-import { GetNoteResponseDto } from "@/dtos/note/response/get-note.response.dto";
 import ResponseDto from "@/dtos/response.dto";
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 
 import { AxiosError } from "axios";
 import { FIND_BY_NOTE_ID_API } from "../constants";
+import { GetNoteResponseDto } from "@/dtos/note/response/get-note.response.dto";
 
 export const GetNoteRequest = async(accessToken: string, noteId: number): Promise<ResponseDto<GetNoteResponseDto>> => {
   try{

@@ -1,5 +1,5 @@
-/** @jsxImportSource @emorion/react */
-import { css } from '@emotion/react';
+/** @jsxImportsource @emorion/react */
+import {css} from '@emotion/react';
 
 export const body = css`
     width: 70%;

@@ -61,6 +61,7 @@ export const GET_TRAINER_INFO = (trainerId: number) => `${COMMON_API}/${trainerI
 export const GET_TRAINER_BY_NAME = `${COMMON_API}/search-name`;
 export const GET_TRAINER_BY_ADDRESS = `${COMMON_API}/search-address`;
 
+export const SINGLE_FILE = (fileId: number) => `${FILE_API}/single/${fileId}`
 export const UPLOAD_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_MULTI_FILES = `${FILE_API}/multi`;
 export const GET_SINGLE_MULTI_FILES = (fileId: number) => `${FILE_API}/multi/${fileId}`;
@@ -71,10 +72,12 @@ export const UPDATE_POST = (matchId: number) => `${BOARD_API}/${matchId}`;
 export const DELETE_POST = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_DETAIL = (matchId: number, postId: number) => `${BOARD_API}/${matchId}/posts/${postId}`;
 export const GET_POST_LIST = (matchId: number) => `${BOARD_API}/${matchId}`;
+
 export const SEARCH_POST_BY_NAME = (matchId: number) => `${BOARD_API}/${matchId}/search-name`;
 export const SEARCH_POST_BY_TITLE = (matchId: number) => `${BOARD_API}/${matchId}/search-title`;
 export const SEARCH_POST_BY_CONTENT = (matchId: number) => `${BOARD_API}/${matchId}/search-content`;
 export const GET_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
+
 export const CREATE_COMMENTS_API = (boardId: number) => `${BOARD_API}/${boardId}/comments`;
 export const UPDATE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;
 export const DELETE_COMMENTS_API = (boardId: number, commentId: number) => `${BOARD_API}/${boardId}/comments/${commentId}`;
