@@ -100,6 +100,7 @@ export const PUT_APPROVE_TRAINER_MATCH_WAITING_LIST_API = (matchWaitingListId: n
 export const PUT_REJECT_TRAINER_MATCH_WAITING_LIST_API = (matchWaitingListId: number) => `${TRAINER_MATCH_WAITING_LIST_API}/${matchWaitingListId}/rejects`
 export const DELETE_CANCEL_MEMBER_MATCH_WAITING_LIST_API = (matchWaitingListId: number) => `${MEMBER_MATCH_WAITING_LIST_API}/${matchWaitingListId}`;
 
+export const USER_MATCH_API = `${USER_API}/match-list`;
 export const MEMBER_MATCH_API = `${MEMBER_API}/me/match-list`;
 export const TRAINER_MATCH_API = `${TRAINER_API}/me/match-list`;
 export const TRAINER_FIND_MEMBER_MATCH_API = (matchId: number) => `${TRAINER_MATCH_API}/${matchId}`;
