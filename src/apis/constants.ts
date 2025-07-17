@@ -109,5 +109,4 @@ export const DELETE_MEMBER_MATCH_API = (matchId: number) => `${MEMBER_MATCH_API}
 export const MEMBER_SUBSCRIPTION_API = `${MEMBER_API}/me/subscription`;
 export const PAYMENT_API = `${MEMBER_API}/me/payment`;
 
-
-
+export const STATISTIC_API = `${API_BASE}/statistics`;
