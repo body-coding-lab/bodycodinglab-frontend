@@ -7,12 +7,12 @@ export const body = css`
     display: flex;
     flex-grow: 1;
     justify-content: flex-start;
-`
+`;
 
 export const left = css`
     margin-top: 2%;
     margin-left: 10%;
-`
+`;
 
 export const right = css`
     margin-top: 2%;
@@ -21,11 +21,11 @@ export const right = css`
     display: flex;
     align-items: center;
     flex-direction: column;
-`
+`;
 
 export const headWrap = css`
     width: 90%;
-`
+`;
 
 export const titleWrap = css`
     width: 90%;
@@ -33,7 +33,7 @@ export const titleWrap = css`
     border: 3px solid #C5CEE0;
     border-radius: 10px;
     margin-bottom: 10px;
-`
+`;
 
 export const title = css`
     padding-left: 10px;
@@ -48,14 +48,14 @@ export const title = css`
     outline: none;
     box-shadow: none;
     background: none;
-`
+`;
 
 export const contentWrap = css`
     width: 90%;
     height: 500px;
     border: 3px solid #C5CEE0;
     border-radius: 10px 10px 0 0;
-`
+`;
 
 export const content = css`
     padding-left: 10px;
@@ -72,7 +72,7 @@ export const content = css`
     &::placeholder{
         color: #3F4756;
     }
-`
+`;
 
 export const file = css`
     width: 90%;
@@ -80,7 +80,7 @@ export const file = css`
     border-top: none;
     font-size: 16px;
     color: #437BC0;
-`
+`;
 
 export const writeBtn = css`
     width: 90%;
@@ -93,20 +93,20 @@ export const writeBtn = css`
     border-top: 0px;
     border-radius: 0 0 10px 10px;
     cursor: pointer;
-`
+`;
 
 export const previewWrap = css`
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     margin-top: 16px;
-`
+`;
 
 export const previewItem = css`
     position: relative;
     width: 100px;
     height: 100px;
-`
+`;
 
 export const previewImage = css`
     width: 100%;
@@ -114,7 +114,7 @@ export const previewImage = css`
     object-fit: cover;
     border-radius: 6px;
     border: 1px solid #ccc;
-`
+`;
 
 export const deleteBtn = css`
     position: absolute;
@@ -127,4 +127,4 @@ export const deleteBtn = css`
     width: 20px;
     height: 20px;
     cursor: pointer;
-`
+`;

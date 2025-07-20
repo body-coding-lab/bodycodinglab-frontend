@@ -7,13 +7,13 @@ export const body = css`
     display: flex;
     flex-grow: 1;
     justify-content: flex-start;
-`
+`;
 
 export const left = css`
     width: 300px;
     margin-top: 2%;
     margin-left: 10%;
-`
+`;
 
 export const right = css`
     flex-grow: 1;
@@ -22,4 +22,4 @@ export const right = css`
     display: flex;
     align-items: stretch;
     flex-direction: column;
-`
+`;

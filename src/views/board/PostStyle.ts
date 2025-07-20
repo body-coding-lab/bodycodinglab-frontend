@@ -8,12 +8,12 @@ export const body = css`
     flex-grow: 1;
     justify-content: flex-start;
     margin-bottom: 20px;
-`
+`;
 
 export const left = css`
     margin-top: 2%;
     margin-right: 10%;
-`
+`;
 
 export const right = css`
     margin-top: 2%;
@@ -22,7 +22,7 @@ export const right = css`
     display: flex;
     align-items: center;
     flex-direction: column;
-`
+`;
 
 export const modalOverlay = css`
     position: fixed;
@@ -35,7 +35,7 @@ export const modalOverlay = css`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 export const profileModal = (x: number, y: number) => css`
     position: absolute;
@@ -53,7 +53,7 @@ export const profileModal = (x: number, y: number) => css`
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transform: translate(-50%, -10%);
     z-index: 1000;
-`
+`;
 
 export const modalProfileImage = css`
     width: 110px;
@@ -62,19 +62,19 @@ export const modalProfileImage = css`
     overflow: hidden;
     border: 2px solid #437bc0;
     object-fit: cover;
-`
+`;
 
 export const profileMiddle = css`
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-`
+`;
 
 export const profileUser = css`
     font-size: 20px;
     color: #3F4756;
-`
+`;
 
 export const modalNoteBtn = css`
     width: 30px;
@@ -86,7 +86,7 @@ export const modalNoteBtn = css`
     &:hover{
         color: #fff;
     }
-`
+`;
 
 export const searchWriter = css`
     font-size: 20px;
@@ -95,7 +95,7 @@ export const searchWriter = css`
     &:hover{
         color: #999;
     }
-`
+`;
 
 export const closeBtn = css`
     position: absolute;
@@ -110,7 +110,7 @@ export const closeBtn = css`
     &:hover{
         color: #333;
     }
-`
+`;
 
 export const deleteModal = css`
     width: 250px;
@@ -124,13 +124,13 @@ export const deleteModal = css`
     padding: 0%;
     box-sizing: border-box;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-`
+`;
 
 export const deleteText = css`
     font-size: 20px;
     text-align: center;
     margin-bottom: 10px;
-`
+`;
 
 export const deleteBtn = css`
     width: 70px;
@@ -143,12 +143,12 @@ export const deleteBtn = css`
     display: flex;
     justify-content: center;
     align-items: center;
-`
+`;
 
 export const deleteBtns = css`
     display: flex;
     gap: 30px;
-`
+`;
 
 export const postHeader = css`
     width: 90%;
@@ -159,7 +159,7 @@ export const postHeader = css`
     align-items: center;
     background-color: #F1FAFF;
     border-radius: 10px 10px 0 0;
-`
+`;
 
 export const profile = css`
     width: 300px;
@@ -168,7 +168,7 @@ export const profile = css`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-`
+`;
 
 export const loginProfile = css`
     margin-left: 10px;
@@ -181,7 +181,7 @@ export const loginProfile = css`
     justify-content: center;
     align-items: center;
     object-fit: cover;
-`
+`;
 
 export const  profileSub = css`
     width: 200px;
@@ -191,11 +191,11 @@ export const  profileSub = css`
     align-items: center;
     justify-content: center;
     font-size: 20px;
-`
+`;
 
 export const title = css`
     margin-right: auto;
-`
+`;
 
 export const postHeaderBtn = css`
     width: 80px;
@@ -207,11 +207,11 @@ export const postHeaderBtn = css`
     font-size: 24px;
     color: white;
     cursor: pointer;
-`
+`;
 
 export const postHeaderBtns = css`
     margin-right: 10px;
-`
+`;
 
 export const postContent = css`
     width: 90%;
@@ -221,13 +221,13 @@ export const postContent = css`
     border: 2px solid #C6CEE0;
     border-top: none;
     padding-bottom: 20px;
-`
+`;
 
 export const contentText = css`
     margin: 10px;
     height: auto;
     min-height: 400px;
-`
+`;
 
 export const postImage = css`
     width: 100%;
@@ -235,11 +235,11 @@ export const postImage = css`
     margin-bottom: 10px;
     border-radius: 8px;
     object-fit: cover;
-`
+`;
 
 export const imageList = css`
     margin-top: 20px;
-`
+`;
 export const postLike = css`
     width: 50px;
     height: 50px;
@@ -255,7 +255,7 @@ export const postLike = css`
     overflow: hidden;
     border: 2.5px solid red;
     cursor: pointer;
-`
+`;
 
 export const postFooter = css`
     width: 90%;
@@ -266,7 +266,7 @@ export const postFooter = css`
     border: 2px solid #C5CEE0;
     border-top: none;
     border-bottom: none;
-`
+`;
 
 export const footer = css`
     margin-right: auto;
@@ -275,7 +275,7 @@ export const footer = css`
     margin-left: 10px;
     line-height: 50px;
     align-items: center;
-`
+`;
 
 export const likeImage = css`
     width: 30px;
@@ -286,13 +286,13 @@ export const likeImage = css`
     background-repeat: no-repeat;
     overflow: hidden;
     margin-right: 10px;
-`
+`;
 
 export const footerRight = css`
     display: flex;
     justify-content: flex-end;
     margin-right: 20px;
-`
+`;
 
 export const commentImage = css`
     width: 40px;
@@ -303,7 +303,7 @@ export const commentImage = css`
     background-repeat: no-repeat;
     overflow: hidden;
     margin-right: 5px;
-`
+`;
 
 export const viewImage = css`
     width: 30px;
@@ -314,20 +314,20 @@ export const viewImage = css`
     background-repeat: no-repeat;
     overflow: hidden;
     margin-right: 5px;
-`
+`;
 
 export const comment = css`
     width: 90%;
     background-color: #F1FAFF;
     border: 2px solid #C6CEE0;
     border-bottom: none;
-`
+`;
 
 export const noComment = css`
     font-size: 20px;
     color: #aaa;
     text-align: center;
-`
+`;
 
 export const commentWrite = css`
     width: 90%;
@@ -338,7 +338,7 @@ export const commentWrite = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-`
+`;
 
 export const commentWriteInput = css`
     font-size: 20px;
@@ -358,7 +358,7 @@ export const commentWriteInput = css`
     background-color: rgba(217, 217, 217, 0.25);
     margin-right: 10px;
     border-radius: 0 0 10px 10px;
-`
+`;
 
 export const commentWriteBtn = css`
     width: 100px;
@@ -370,4 +370,4 @@ export const commentWriteBtn = css`
     font-size: 24px;
     color: white;
     cursor: pointer;
-`
+`;

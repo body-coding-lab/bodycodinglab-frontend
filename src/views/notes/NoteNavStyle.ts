@@ -12,7 +12,7 @@ export const navWrap = css`
     flex-direction: column;
     align-items: center;
     gap: 15px;
-`
+`;
 
 export const navDivs = css`
     text-decoration: none;
@@ -25,7 +25,7 @@ export const navDivs = css`
     line-height: 60px;
     padding: 10px;
     cursor: pointer;
-`
+`;
 
 export const useNavDivs = css`
     text-decoration: none;
@@ -38,4 +38,4 @@ export const useNavDivs = css`
     line-height: 60px;
     padding: 10px;
     cursor: pointer;
-`
+`;

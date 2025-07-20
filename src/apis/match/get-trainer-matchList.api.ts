@@ -3,8 +3,9 @@ import ResponseDto from "@/dtos/response.dto";
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { TRAINER_MATCH_API } from "../constants";
 import { AxiosError } from "axios";
+import { GetUserMatchListResponseDto } from "@/dtos/match/response/get_user-match-list.response.dto";
 
-export const GetTrainerMatchListRequest = async (accessToken: string): Promise<ResponseDto<GetTrainerMatchListResponseDto[]>> => {
+export const GetTrainerMatchListRequest = async (accessToken: string): Promise<ResponseDto<GetUserMatchListResponseDto[]>> => {
   try{
     const response = await axiosInstance.get(TRAINER_MATCH_API, bearerAuthorization(accessToken));
 

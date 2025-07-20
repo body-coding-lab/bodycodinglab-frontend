@@ -1,6 +1,6 @@
 export interface GetTrainerDetailResponseDto {
   trainerId: number;
-  usernameL: string;
+  username: string;
   name: string;
   birthdate: string;
   gender: 'MALE' | 'FEMALE';

@@ -1,0 +1,251 @@
+/** @jsxImportSource @emotion/react */
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+import * as m from "./MemberMatchWaitingListStyle";
+import { useNavigate } from "react-router-dom";
+import { DeleteMemberMatchRequest } from "@/apis/match/delete-member-match.api";
+import GetUserMatchId from "@/utils/GetUserMatchId";
+import { PostPaymentRequestDto } from "@/dtos/payment/request/post-payment.request.dto";
+import { PostPaymentRequest } from "@/apis/payment/post-payment.api";
+import { ConfirmPaymentRequestDto } from "@/dtos/payment/request/confrim-payment.request.dto";
+import { PostSubscripitonRequest } from "@/apis/subscription/post-subscription.api";
+import { GetMemberMatchWaitingListResponseDto } from "@/dtos/matchWaitingList/response/get-member-matchWatingList.response.dto";
+import { GetMemberMatchWaitingListRequest } from "@/apis/matchWaitingList/get-member-matchWaitingList.api";
+
+declare global {
+  interface Window {
+    IMP: any;
+  }
+}
+
+
+function useIamportScript() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (document.getElementById("iamport-script")) {
+      setLoaded(true);
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.id = "iamport-script";
+    script.src = "https://cdn.iamport.kr/js/iamport.payment-1.2.0.js";
+    script.onload = () => setLoaded(true);
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
+
+  return loaded;
+}
+
+
+
+function ReadMemberMatchWatingList() {
+  const [cookies, setCookies] = useCookies(["accessToken"]);
+  const [trainerData, setTrainerData] = useState<
+  GetMemberMatchWaitingListResponseDto | undefined
+  >(undefined);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const iamportLoaded = useIamportScript();
+
+
+  useEffect(() => {
+    const loadingTrainerData = async () => {
+      setLoading(true);
+      const token = cookies.accessToken;
+      if (!token) {
+        setLoading(false);
+        alert("접근 권한이 존재하지 않습니다.");
+        navigate("/");
+      }
+      const response = await GetMemberMatchWaitingListRequest(token);
+      setTrainerData(response.data);
+      setLoading(false);
+    };
+
+    loadingTrainerData();
+  }, []);
+
+  const matchCancelButton = async () => {
+    const token = cookies.accessToken;
+    if (!token) {
+      alert("매칭을 취소할 권한이 존재하지 않습니다.");
+      navigate("/");
+    }
+    const matchId = await GetUserMatchId();
+
+    const response = await DeleteMemberMatchRequest(
+        matchId,
+        token
+    );
+    if (response.code === "SU") {
+      alert("매칭이 성공적으로 취소되었습니다.");
+      navigate("/");
+    }
+  };
+
+  
+
+
+
+  const subscriptionButton = async (matchWaitingListId: number) => {
+    const token = cookies.accessToken;
+    if (!token) {
+      alert("구독 신청을 할 권한이 존재하지 않습니다.");
+    }
+
+    if (!iamportLoaded) {
+      alert("결제 모듈이 로드되지 않았습니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    const paymentRequestDto: PostPaymentRequestDto = {
+    amount: 149000,
+  };
+
+  let paymentResponse;
+
+  try{
+    paymentResponse = await PostPaymentRequest(paymentRequestDto, token);
+  } catch(e){
+    alert("결제 생성에 실패했습니다.");
+    return;
+  }
+      
+  if (!paymentResponse.data) {
+    const retry = window.confirm("결제에 실패했습니다. 다시 시도하시겠습니까?");
+    if (retry) {
+      setTimeout(() => subscriptionButton(matchWaitingListId), 100);
+    }
+    
+    return;
+  }
+
+  const { orderId, amount } = paymentResponse.data;
+
+
+  const IMP = window.IMP;
+  IMP.init("imp51875446");
+
+    IMP.request_pay(
+      {
+        pg: "kakaopay",
+        pay_method: "card",
+        merchant_uid: orderId,
+        name: "구독 결제",
+        amount: amount,
+      },
+      async (rsp: any) => {
+        if (rsp.success) {
+          const subscriptionRequestDto: ConfirmPaymentRequestDto = {
+            orderId: orderId,
+            provider: "KAKAO_PAY",
+            matchWaitingListId: matchWaitingListId,
+            paymentKey: rsp.imp_uid, 
+          };
+
+          try {
+            const response = await PostSubscripitonRequest(subscriptionRequestDto, token);
+            if (response.code === "SU") {
+              alert("구독 신청 완료");
+              navigate("/");
+            } else {
+              alert("구독 신청에 실패했습니다.");
+            }
+          } catch (e) {
+            alert("구독 신청 중 오류가 발생했습니다.");
+          }
+        } else {
+          alert(`결제 실패: ${rsp.error_msg}`);
+        }
+      }
+    );
+
+  
+  };
+
+  if (loading) return <p>로딩 중입니다...</p>;
+  if (!trainerData)
+    return <p>매칭 신청한 트레이너가 존재하지 않거나 신청이 거절되었습니다.</p>;
+  return (
+    <div css={m.MemberMatchWaitingListContainerBox}>
+      <div>
+        <h2 css={m.MemberMatchWaitingListTitle}>매칭 신청한 트레이너</h2>
+        <br />
+        <div css={m.MemberMatchWaitingListContainer}>
+            <br />
+            <br />
+            <img src={trainerData.profileImageUrl ? `http://localhost:8080${trainerData.profileImageUrl}` : '/default-profile.png'} alt="트레이너 이미지" css={m.trainerProfile} />
+            <br />
+            <br />
+            <div>
+            <strong style={{ color:"#3F4756"}}>트레이너 이름:</strong> <p>{trainerData.trainerName}</p>
+            </div>
+            <hr />
+            <br />
+            <br />
+            <div>
+            <strong  style={{ color:"#3F4756"}}>근무지:</strong> <p>{trainerData.trainerJobAddress}</p>
+            </div>
+            <hr />
+            <br />
+            <br />
+            <div>
+            <strong  style={{ color:"#3F4756"}}>신청일:</strong>{" "}
+            <p>
+                {new Date(trainerData.appliedAt).toLocaleString("ko-kR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+                })}
+            </p>
+            </div>
+            {trainerData.approvedStatus === "REJECT" ?  <>
+            <hr />
+            <br />
+            <br />
+            <div>
+            <div style={{textAlign: "center"}}>
+            <strong style={{ color: "red"}}>매칭 거절 됨</strong>
+            </div>
+            <br />
+            <strong  style={{ color:"#3F4756"}}>거절 사유:</strong>{" "}
+            <p>
+                {trainerData.rejectResponse}
+            </p>
+            </div>
+            </> : 
+            <div>
+                <br />
+                <p style={{fontWeight: 'bolder', color: "#3F4756"}}>신청 대기 중.....</p>
+            </div>
+            } 
+            <br />
+            <br />
+            <div css={m.MemberMatchWaitingListButtonContainer}>
+            <button css={m.MatchWaitingListButton} onClick={matchCancelButton}>
+                신청 취소
+            </button>
+            <button
+                onClick={() => subscriptionButton(trainerData.matchWaitingListId)}
+                css={m.MatchWaitingListButton}
+                disabled={trainerData.approvedStatus === "REJECT" || trainerData.approvedStatus === "NOT_APPROVED"}
+            >
+                구독
+            </button>
+            </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ReadMemberMatchWatingList;

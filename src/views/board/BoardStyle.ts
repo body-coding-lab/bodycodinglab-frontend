@@ -7,11 +7,11 @@ export const body = css`
     display: flex;
     flex-grow: 1;
     justify-content: flex-start;
-`
+`;
 
 export const left = css`
     margin-top: 50px;
-`
+`;
 
 export const right = css`
     margin-top: 50px;
@@ -19,18 +19,18 @@ export const right = css`
     display: flex;
     align-items: center;
     flex-direction: column;
-`
+`;
 
 export const headwrap = css`
     width: 90%;
-` 
+`;
 
 export const head = css`
     width: 90%;
     margin-right: auto;
     color: #437Bc0;
     margin-bottom: 3px;
-`
+`;
 
 export const rightTop = css`
     display: flex;
@@ -39,7 +39,7 @@ export const rightTop = css`
     align-items: center;
     gap: 10px;
     margin-bottom: 10px;
-`
+`;
 
 export const search = css`
     flex-grow: 1;
@@ -51,7 +51,7 @@ export const search = css`
     border-radius: 40px;
     align-items: center;
     box-sizing: border-box;
-`
+`;
 
 export const searchInput = css`
     width: 100%;
@@ -63,7 +63,7 @@ export const searchInput = css`
     background: none;
     font-size: 30px;
     line-height: 60px;
-`
+`;
 
 export const searchBtn = css`
     height: 50px;
@@ -79,7 +79,7 @@ export const searchBtn = css`
     cursor: pointer;
     align-items: center;
     justify-content: center;
-`
+`;
 
 export const writeBtn = css`
     height: 57px;
@@ -92,11 +92,11 @@ export const writeBtn = css`
     border-radius: 35px;
     box-sizing: border-box;
     cursor: pointer;
-`
+`;
 
 export const loading = css`
     font-size: 30px;
-`
+`;
 
 export const board = css`
     margin-top: 5%;
@@ -105,16 +105,16 @@ export const board = css`
     margin: auto;
     border: 3px solid #C5CEE0;
     border-radius: 10px 10px 0 0;
-`
+`;
 
 export const spanHead = css`
     color: #3F4756;
     border-bottom: 2px solid #C5CEE0;
-`
+`;
 
 export const post = css`
     cursor: pointer;
-`
+`;
 
 export const spans = css`
     color: #3F4756;
@@ -124,34 +124,34 @@ export const spans = css`
         background-color: #ccc;
         color: white;
     }
-`
+`;
 
 export const postIdSpan = css`
     margin-left: 10px;
     display: inline-block;
     border-right: 1px solid #ccc;
     width: 10%;
-`
+`;
 
 export const postTitleSpan = css`
     margin-left: 10px;
     display: inline-block;
     border-right: 1px solid #ccc;
     width: 60%;
-`
+`;
 
 export const postWriterSpan = css`
     margin-left: 10px;
     display: inline-block;
     border-right: 1px solid #ccc;
     width: 10%;
-`
+`;
 
 export const postDateSpan = css`
     margin-left: 10px;
     display: inline-block;
     width: 10%;
-`
+`;
 
 export const boardBottom = css`
     width: 90%;
@@ -164,7 +164,7 @@ export const boardBottom = css`
     justify-content: center;
     align-items: center;
     gap: 1px;
-`
+`;
 
 export const pageTextBtn = css`
     width: 20px;
@@ -179,7 +179,7 @@ export const pageTextBtn = css`
     :hover{
         background-color: #C5CEE0;
     }
-`
+`;
 
 export const pageNumBtn = css`
     width: 20px;
@@ -194,4 +194,4 @@ export const pageNumBtn = css`
     :hover{
         background-color: #C5CEE0;
     }
-`
+`;

@@ -9,7 +9,7 @@ export const wrap = css`
     min-height: 80px;
     display: flex;
     border-bottom: 1px solid #ccc;
-`
+`;
 
 export const profileImage = css`
     width: 60px;
@@ -20,7 +20,7 @@ export const profileImage = css`
     margin-left: 10px;
     border: 2px solid #437BC0;
     object-fit: cover;
-`
+`;
 
 export const commentContentBox = css`
     display: flex;
@@ -28,7 +28,7 @@ export const commentContentBox = css`
     gap: 10px;
     flex: 1;
     min-height: 60px;
-`
+`;
 
 export const commentInfoBox = css`
     width: 120px;
@@ -36,17 +36,17 @@ export const commentInfoBox = css`
     display: flex;
     align-items: center;
     gap: 8px;
-`
+`;
 
 export const commentWriter = css`
     font-size: 18px;
     color: #333;
-`
+`;
 
 export const createdAt = css`
     font-size: 12px;
     color: #888;
-`
+`;
 
 export const commentText = css`
     margin: 5px;
@@ -58,7 +58,7 @@ export const commentText = css`
     background-color: rgba(1, 1, 1, 0.05);
     white-space: pre-wrap;
     word-break: break-word;
-`
+`;
 
 export const deleteBtn = css`
     margin-left: auto;
@@ -72,4 +72,4 @@ export const deleteBtn = css`
     color: white;
     align-self: center;
     flex-shrink: 0;
-`
+`;

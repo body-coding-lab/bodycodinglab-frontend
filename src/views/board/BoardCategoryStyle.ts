@@ -6,7 +6,7 @@ export const head = css`
     text-align: center;
     color: #437BC0;
     margin-bottom: 3px;
-`
+`;
 
 export const category = css`
     width: 300px;
@@ -15,13 +15,13 @@ export const category = css`
     border: 3px solid #C5CEE0;
     border-radius: 10px;
     box-sizing: border-box;
-`
+`;
 
 export const categorys = css`
     flex-direction: column;
     display: flex;
     gap: 20px;
-`
+`;
 
 export const categoryDivs = css`
     font-size: 40px;
@@ -34,7 +34,7 @@ export const categoryDivs = css`
     color: #699CE4;
     padding: 10px;
     cursor: pointer;
-`
+`;
 
 export const useCategoryDivs = css`
     font-size: 40px;
@@ -47,4 +47,4 @@ export const useCategoryDivs = css`
     color: #437BC0;
     padding: 10px;
     cursor: pointer;
-`
+`;
