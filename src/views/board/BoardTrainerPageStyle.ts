@@ -8,7 +8,7 @@ export const body = css`
     margin-top: 20px;
     border: 3px solid #ccc;
     border-radius: 10px;
-`
+`;
 
 export const boardListWrap = css`
     width: 1090px;
@@ -19,14 +19,14 @@ export const boardListWrap = css`
     gap: 10px 2%;
     align-items: flex-start;
     justify-content: space-between;
-`
+`;
 
 export const noMatch = css`
     font-size: 24px;
     margin: auto;
     padding-top: 40px;
     color: #3F4756;
-`
+`;
 
 export const boardList = css`
     width: 40%;
@@ -49,4 +49,4 @@ export const boardList = css`
         border: none;
         border-radius: 10px;
     }
-`
+`;

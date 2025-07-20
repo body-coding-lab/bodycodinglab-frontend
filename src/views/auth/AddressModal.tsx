@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import * from './AuthStyle';
+import * as s from "./AuthStyle";
 import React from 'react'
 
 interface AddressModalProps{
@@ -16,7 +16,7 @@ function AddressModal({onClose, onComplete}: AddressModalProps) {
   return (
     <div css={s.overlay}>
         <div css={s.modal}>
-            <button onClick={onClose} css={s.closeBtn}>X</button>
+            <button onClick={onClose} css={s.closeButton}>X</button>
             <DaumPostcodeEmbed
                 onComplete={handleComplete}
             />

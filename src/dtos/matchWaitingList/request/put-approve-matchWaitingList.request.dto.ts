@@ -1,5 +1,5 @@
-type ApproveStatus = "NOT_APPROVED" | "APPROVED"| "REJECT";
+type ApprovedStatus = "NOT_APPROVED" | "APPROVED"| "REJECT";
 
 export interface PutApproveMatchWaitingListRequestDto{
-  approveStatus: ApproveStatus;
+  approvedStatus: ApprovedStatus;
 }

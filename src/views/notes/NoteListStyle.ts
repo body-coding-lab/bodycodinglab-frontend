@@ -7,18 +7,18 @@ export const titleWrap = css`
     background-color: #699CE4;
     border: 2px solid #9D9D9D;
     border-radius: 10px;
-`
+`;
 
 export const title = css`
     font-size: 30px;
     line-height: 45px;
     padding-left: 10px;
     color: white;
-`
+`;
 
 export const loading = css`
     font-size: 30px;
-`
+`;
 
 export const noteListWrap = css`
     margin-top: 10px;
@@ -28,7 +28,7 @@ export const noteListWrap = css`
     background-color: #F1FAFF;
     border: 2px solid #9D9D9D;
     border-radius: 10px 10px 0 0;
-`
+`;
 
 export const noteWriteWrap = css`
     margin-top: 10px;
@@ -40,7 +40,7 @@ export const noteWriteWrap = css`
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-`
+`;
 
 export const profile = css`
     margin: auto;
@@ -54,13 +54,13 @@ export const profile = css`
     align-items: center;
     font-size: 22px;
     color: #3F4756;
-`
+`;
 
 export const profileDetail = css`
     display: flex;
     align-items: center;
     margin-right: 20px;
-`
+`;
 
 export const profileImage = css`
     margin-left: 10px;
@@ -71,7 +71,7 @@ export const profileImage = css`
     border-radius: 50%;
     border: 2px solid #437BC0;
     object-fit: cover;
-`
+`;
 
 export const profileSpan = css`
     font-size: 22px;
@@ -83,7 +83,7 @@ export const profileSpan = css`
         border: none;
         box-shadow: none;
     }
-`
+`;
 
 export const profileBtn = css`
     width: 70px;
@@ -98,7 +98,7 @@ export const profileBtn = css`
         background-color: #437BC0;
         color: white;
     }
-`
+`;
 
 export const noteText = css`
     padding-left: 10px;
@@ -120,7 +120,7 @@ export const noteText = css`
     resize: none;
     border-radius: 10px;
     border: 2px solid #D9D9D9;
-`
+`;
 
 export const sendBtn = css`
     width: 80%;
@@ -136,18 +136,18 @@ export const sendBtn = css`
         background-color: #437BC0;
     }
     cursor: pointer;
-`
+`;
 
 export const note = css`
     width: 100%;
     box-sizing: border-box;
     cursor: pointer;
-`
+`;
 
 export const spanHead = css`
     color: #3f4756;
     border-bottom: 2px solid #c5cee0;
-`
+`;
 
 export const noteTextHead = css`
     margin-left: 10px;
@@ -155,7 +155,7 @@ export const noteTextHead = css`
     width: 50.8%;
     border-right: 1px solid #CCC;
     text-align: center;
-`
+`;
 
 export const spans = css`
     color: #3f4756;
@@ -164,40 +164,40 @@ export const spans = css`
         background-color: #CCC;
         color: white;
     }
-`
+`;
 
 export const noteIdSpan = css`
     margin-left: 10px;
     display: inline-block;
     border-right: 1px solid #CCC;
-`
+`;
 
 export const noteContentSpan = css`
     margin-left: 10px;
     display: inline-block;
     width: 50.8%;
     border-right: 1px solid #CCC;
-`
+`;
 
 export const noteWriterSpan = css`
     margin-left: 10px;
     display: inline-block;
     width: 9%;
     border-right: 1px solid #CCC;
-`
+`;
 
 export const noteReceiverSpan = css`
     margin-left: 10px;
     display: inline-block;
     width: 9%;
     border-right: 1px solid #CCC;
-`
+`;
 
 export const noteDateSpan = css`
     margin-left: 10px;
     display: inline-block;
     width: 18.05%;
-`
+`;
 
 export const page = css`
     width: 80%;
@@ -208,7 +208,7 @@ export const page = css`
     border-top: 0px;
     text-align: center;
     line-height: 50px;
-`
+`;
 
 export const pageTextBtn = css`
     width: 20px;
@@ -222,7 +222,7 @@ export const pageTextBtn = css`
     :hover{
         color: white;
     }
-`
+`;
 
 export const pageNumBtn = css`
     width: 20px;
@@ -236,4 +236,4 @@ export const pageNumBtn = css`
     :hover{
         color: white;
     }
-`
+`;
