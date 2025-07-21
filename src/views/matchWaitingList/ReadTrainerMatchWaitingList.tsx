@@ -20,9 +20,6 @@ function ReadTrainerMatchWaitingList() {
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null); 
   const navigate = useNavigate();
 
-    const path = location.pathname;
-  
-
   const loadingMemberData = async () => {
     setLoading(true);
     const token = cookies.accessToken;
@@ -100,18 +97,15 @@ function ReadTrainerMatchWaitingList() {
   if (!memberDatas || memberDatas.length === 0){
 
     return (
-    <div>
-      <div style={{display: "flex"}}>
-      <MyPageSidebar/>
-      <div style={{marginTop: "25px", marginLeft: "15px"}}>
-      <h2 style={{color: "#3F4756"}}>매칭 대기 관리 </h2>
-      <p style={{marginTop: "25px"}}>매칭 신청 대기 중인 회원이 존재하지 않습니다.</p>
+      <div>
+        <div style={{display: "flex"}}>
+          <MyPageSidebar/>
+            <div style={{marginTop: "25px", marginLeft: "15px"}}>
+              <h2 style={{color: "#3F4756"}}>매칭 대기 관리 </h2>
+              <p style={{marginTop: "25px"}}>매칭 신청 대기 중인 회원이 존재하지  않습니다.</p>
+            </div>
+        </div>
       </div>
-      </div>
-
-    </div>
-    
-
     );
   }
   return (
@@ -123,61 +117,62 @@ function ReadTrainerMatchWaitingList() {
           <div css={t.trainerMatchBox}>
             <h2 css={t.trainerMatchTitle}>매칭 대기 리스트</h2>
             <div css={t.trainerMatchTableWrapper}>
-                <table css={t.trainerMatchTableStyle}>
+              <table css={t.trainerMatchTableStyle}>
                 <thead css={t.trainerMatchTableHead}>
                     <tr>
-                    <th>회원번호</th>
-                    <th>이름</th>
-                    <th>나이</th>
-                    <th>성별</th>
-                    <th>신청일</th>
-                    <th>상태</th>
-                    <th colSpan={2}>처리</th>
+                      <th>회원번호</th>
+                      <th>이름</th>
+                      <th>나이</th>
+                      <th>성별</th>
+                      <th>신청일</th>
+                      <th>상태</th>
+                      <th colSpan={2}>처리</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {memberDatas.map((data) => (
+                  {memberDatas.map((data) => (
                     <tr key={data.matchWaitingListId} css={t.trainerMatchTableRow}>
-                        <td css={t.trainerMatchTableCell}>{data.memberId}</td>
-                        <td css={t.trainerMatchTableCell}>{data.memberName}</td>
-                        <td css={t.trainerMatchTableCell}>{data.memberAge}</td>
-                        <td css={t.trainerMatchTableCell}>{data.memberGender}</td>
-                        <td css={t.trainerMatchTableCell}>{new Date(data.appliedAt).toLocaleString()}</td>
-                        <td css={t.trainerMatchTableCell}>{
+                      <td css={t.trainerMatchTableCell}>{data.memberId}</td>
+                      <td css={t.trainerMatchTableCell}>{data.memberName}</td>
+                      <td css={t.trainerMatchTableCell}>{data.memberAge}</td>
+                      <td css={t.trainerMatchTableCell}>{data.memberGender}</td>
+                      <td css={t.trainerMatchTableCell}>{new Date(data.appliedAt).toLocaleString()}</td>
+                      <td css={t.trainerMatchTableCell}>
+                        {
                         data.approvedStatus === "NOT_APPROVED"
                             ? "승인 대기"
                             : data.approvedStatus === "APPROVED"
                             ? "승인"
                             : "거절"
-                        }</td>
-                    
-                        <div css={t.tdButtonCellBox}>
+                        }
+                      </td>
+                      <div css={t.tdButtonCellBox}>
                         <td css={t.tdButtonCell}>
-                        <button
-                            css={t.trainerMatchButton(data.approvedStatus)}
-                            onClick={() => matchApproveButton(data.matchWaitingListId)}
-                            disabled={data.approvedStatus !== "NOT_APPROVED"}
-                        >
+                          <button
+                              css={t.trainerMatchButton(data.approvedStatus)}
+                              onClick={() => matchApproveButton(data.matchWaitingListId)}
+                              disabled={data.approvedStatus !== "NOT_APPROVED"}
+                          >
                             승인
-                        </button>
+                          </button>
                         </td>
                         <td>
-                        <button
+                          <button
                             css={t.trainerMatchButton(data.approvedStatus)}
                             onClick={() => {
                             setSelectedMatchId(data.matchWaitingListId);
                             setShowRejectModal(true);
                             }}
                             disabled={data.approvedStatus === "APPROVED"}
-                        >
+                          >
                             거절
-                        </button>
+                          </button>
                         </td>
-                        </div>
+                      </div>
                     </tr>
-                    ))}
+                  ))}
                 </tbody>
-                </table>
+              </table>
             </div>
           </div>
         </div>

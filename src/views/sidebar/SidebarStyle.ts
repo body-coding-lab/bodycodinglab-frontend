@@ -22,7 +22,6 @@ export const profile = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   p {
     font-size: 24px;
     font-weight: bold;
@@ -39,7 +38,6 @@ export const profile = css`
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
-
     &:hover {
       background-color: #437BC0;
     }
@@ -75,7 +73,6 @@ export const link = (selected: boolean) => css`
   display: block;
   cursor: pointer;
   transition: border 0.3s;
-
   &:hover {
     border-radius: ${selected ? "" : "13px"};
     background-color: ${selected ? "" : "#DFF1FF"};
@@ -84,7 +81,6 @@ export const link = (selected: boolean) => css`
 
 export const selected = css`
   border-bottom: 3px solid #437BC0;
-
   &:hover {
     text-decoration: none;
   }
@@ -95,7 +91,6 @@ export const profileWrapper = css`
   width: 110px;
   height: 110px;
   cursor: pointer;
-
   &:hover div {
     opacity: 1;
   }
@@ -133,7 +128,6 @@ export const profileContainer = css`
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -164,7 +158,6 @@ export const profileUpload = css`
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-
   &:hover {
     background-color: #3b76d1;
   }
@@ -178,7 +171,6 @@ export const profileDelete = css`
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-
   &:hover {
     background-color: #c0392b;
   }

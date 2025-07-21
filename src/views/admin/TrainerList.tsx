@@ -8,8 +8,9 @@ import { useCookies } from 'react-cookie';
 import { getTrainerDetailRequest } from '@/apis/admin/get-trainer-detail.api';
 import { GetTrainerDetailResponseDto } from '@/dtos/admin/response/get-trainer-detail.response.dto';
 import { getMenuTitleByPath } from '@/utils/Menu';
-import { trainerStatusToEn, trainerStatusToKr } from '@/utils/trainer-status.map';
 import MyPageSidebar from '../sidebar/MyPageSidebar';
+import TrainerModal from './TrainerModal';
+import { trainerStatusToEn, trainerStatusToKr } from '@/utils/TrainerStatusMap';
 
 function TrainerList() {
   const navigate = useNavigate();
@@ -45,11 +46,9 @@ function TrainerList() {
         setTotalPages(data.totalPages);
       } else {
         setTrainers([]);
-        console.error('트레이너 목록 불러오기 실패: ', message);
         alert('트레이너 목록 불러오기 실패');
       }
     } catch (e) {
-      console.error('트레이너 목록 요청 중 에러 발생:', e);
       alert('트레이너 목록 요청 중 문제가 발생했습니다.');
     }
   };
@@ -80,12 +79,10 @@ function TrainerList() {
       setSelectedTrainer(data);
       setIsModalOpen(true);
     } catch (error) {
-      console.error('상세 조회 실패:', error);
       alert('상세 조회 실패');
     }
   };
   
-
   return (
     <>
       <div css={s.layout}>

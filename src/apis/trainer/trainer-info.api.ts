@@ -1,11 +1,11 @@
 import ResponseDto from "@/dtos/response.dto";
-import { TrainerInfofRequestDto } from "@/dtos/trainer/request/trainer-info.response.dto";
+import { TrainerInfoRequestDto } from "@/dtos/trainer/request/trainer-info.response.dto";
 import { TrainerinfoResponseDto } from "@/dtos/trainer/response/trainer-info.response.dto";
 import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSuccessHandler } from "../axiosConfig";
 import { GET_TRAINER_INFO, PUT_TRAINER_INFO } from "../constants";
 import { AxiosError } from "axios";
 
-const convertToFormData = (dto: TrainerInfofRequestDto): FormData => {
+const convertToFormData = (dto: TrainerInfoRequestDto): FormData => {
   const formData = new FormData();
 
   formData.append("jobAddress", dto.jobAddress);
@@ -24,7 +24,7 @@ const convertToFormData = (dto: TrainerInfofRequestDto): FormData => {
   return formData;
 };
 
-export const updateInfo = async (dto: TrainerInfofRequestDto, accessToken: string): Promise<ResponseDto<TrainerinfoResponseDto>> => {
+export const updateInfo = async (dto: TrainerInfoRequestDto, accessToken: string): Promise<ResponseDto<TrainerinfoResponseDto>> => {
   try{
       const formData = convertToFormData(dto);
       const response = await axiosInstance.put(PUT_TRAINER_INFO, formData, {

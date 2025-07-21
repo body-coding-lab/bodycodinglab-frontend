@@ -66,61 +66,61 @@ function ReadTrainerMatchList() {
     }
   };
 
-
   if (loading) return <p>로딩중입니다.......</p>;
   if (!memberDatas || memberDatas.length === 0)
     return (
-    <div>
+      <div>
         <div style={{display: "flex"}}>
         <MyPageSidebar/> 
-            <div  style={{marginTop: "25px" , marginLeft: "15px"}}>
-                <h2  style={{color: "#3F4756"}}>매칭 관리</h2>
-                <br />
-                <p>매칭 신청 기록이 존재하지 않습니다.</p>
-            </div>
+          <div  style={{marginTop: "25px" , marginLeft: "15px"}}>
+            <h2  style={{color: "#3F4756"}}>매칭 관리</h2>
+            <br />
+            <p>매칭 신청 기록이 존재하지 않습니다.</p>
+          </div>
         </div>
-    </div>);
+      </div>
+    );
   return (
     <div>
-        <div css={t.matchListContainerBox}>
+      <div css={t.matchListContainerBox}>
         <MyPageSidebar/>
-            <div css={t.matchListContainer}>
-            <h2 style={{color: "#3F4756"}}>매칭 관리</h2>
-                <div css={t.matchCardListBox}>
-                    <h2 css={t.matchCardListTitle}>매칭 리스트</h2>
-                    {memberDatas.map((memberData) => (
-                        <div key={memberData.matchId} css={t.matchCardBox}>
-                            <div css={t.matchCardLeft}>
-                                {/* <div style={{display: "flex" }}>
-                                    <strong style={{color: "#3F4756"}}>회원 번호:</strong><span>&nbsp;{memberData.memberId}</span>
-                                </div> dto에 memberId없음*/}
-                                <div style={{display: "flex"}}>
-                                    <strong style={{color: "#3F4756"}}>회원 성별:</strong><span>&nbsp;{memberData.gender}</span>
-                                </div>
-                            </div>
-                            <div css={t.matchCardMiddle}>
-                                <div style={{display: "flex"}}>
-                                    <strong style={{color: "#3F4756"}}>회원 이름: </strong> <span>&nbsp;{memberData.name}</span>
-                                </div>
-                            </div>
-                            <div css={t.matchCardRight}>
-                                <button onClick={() => getMemberData(memberData.matchId)}>
-                                    조회하기
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+        <div css={t.matchListContainer}>
+          <h2 style={{color: "#3F4756"}}>매칭 관리</h2>
+          <div css={t.matchCardListBox}>
+            <h2 css={t.matchCardListTitle}>매칭 리스트</h2>
+            {memberDatas.map((memberData) => (
+              <div key={memberData.matchId} css={t.matchCardBox}>
+                <div css={t.matchCardLeft}>
+                  {/* <div style={{display: "flex" }}>
+                      <strong style={{color: "#3F4756"}}>회원 번호:</strong><span>&nbsp;{memberData.memberId}</span>
+                  </div> dto에 memberId없음*/}
+                  <div style={{display: "flex"}}>
+                    <strong style={{color: "#3F4756"}}>회원 성별:</strong><span>&nbsp;{memberData.gender}</span>
+                  </div>
                 </div>
-            </div>
+                <div css={t.matchCardMiddle}>
+                  <div style={{display: "flex"}}>
+                    <strong style={{color: "#3F4756"}}>회원 이름: </strong> <span>&nbsp;{memberData.name}</span>
+                  </div>
+                </div>
+                <div css={t.matchCardRight}>
+                  <button onClick={() => getMemberData(memberData.matchId)}>
+                    조회하기
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        {isModalOpen && modalData && (
-            <FormModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            formData={modalFormData}
-            data={modalData}
-            />
-        )}
+      </div>
+      {isModalOpen && modalData && (
+        <FormModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          formData={modalFormData}
+          data={modalData}
+        />
+      )}
     </div>
   );
 }
