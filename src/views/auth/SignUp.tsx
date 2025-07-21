@@ -5,7 +5,6 @@ import * as s from './AuthStyle';
 
 function SignUp() {
   const navigate = useNavigate();
-
   const onMemberClick = () => navigate("/auth/sign-up/member");
   const onTrainerClick = () => navigate("/auth/sign-up/trainer");
 

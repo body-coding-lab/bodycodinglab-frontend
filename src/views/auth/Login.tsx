@@ -49,15 +49,11 @@ function Login() {
       const { token, exprTime, id, role, username, name, profileImageUrl } = data;
   
       if (!exprTime || isNaN(exprTime)) {
-        console.error('Invalid exprTime:', exprTime);
         return;
       }
   
       const expireDate = new Date();
       expireDate.setMilliseconds(expireDate.getMilliseconds() + exprTime);
-  
-      console.log('exprTime:', exprTime);
-      console.log(response);
   
       setCookies("accessToken", token, {
         path: '/',
@@ -94,7 +90,6 @@ function Login() {
       }
 
     } catch (e) {
-      console.log('로그인 요청 오류: ', e);
       alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
     }
   };

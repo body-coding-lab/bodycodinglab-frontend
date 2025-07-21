@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import DaumPostcodeEmbed from "react-daum-postcode";
 import * as s from "./AuthStyle";
 import React from 'react'
 

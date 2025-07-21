@@ -41,8 +41,6 @@ const TrainerModal = ({ trainer, onClose, onStatusUpdated }: Props) => {
         dto,
         accessToken
       );
-
-      console.log(code + " : " + message);
   
       if (code !== 'SU') {
         alert(`상태 변경 실패: ${message}`);
@@ -53,7 +51,6 @@ const TrainerModal = ({ trainer, onClose, onStatusUpdated }: Props) => {
       onClose();
       onStatusUpdated();
     } catch (e) {
-      console.log('트레이너 상태 변경 오류: ', e);
       alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
     } finally {
       setIsLoading(false);

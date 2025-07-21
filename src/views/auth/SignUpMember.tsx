@@ -100,14 +100,11 @@ function SignUpMember() {
         alert(message);
         return;
       }
-
       alert('회원가입이 완료되었습니다.');
       navigate('/auth/login');
     } catch(e) {
-      console.log('회원가입 요청 오류: ', e);
       alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
     }
-    
   };
 
   return (

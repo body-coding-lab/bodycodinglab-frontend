@@ -4,7 +4,7 @@ import { GET_TRAINER_ALL_TICKETS_API } from "../constants";
 import { AxiosError } from "axios";
 import { GetTrainerAllTicketsResponseDto } from "@/dtos/oneDayTicket/response/get-trainer-all-tickets.response.dto";
 
-export const getTrainerAllTicketsRequest = async (accessToken: string): Promise<ResponseDto<GetTrainerAllTicketsResponseDto>> => {
+export const getTrainerAllTicketsRequest = async (accessToken: string): Promise<ResponseDto<GetTrainerAllTicketsResponseDto[]>> => {
   try {
     const response = await axiosInstance.get(
       GET_TRAINER_ALL_TICKETS_API,

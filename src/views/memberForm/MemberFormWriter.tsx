@@ -55,7 +55,6 @@ const FormWriter = () => {
     const response = await PostMemberFormRequest(form, token);
     if (response.code === "SU") {
       navigate("/");
-      console.log("제출된 폼:", form);
     } else {
       alert("제출 실패 누락된 항목을 확인해주세요");
     }
