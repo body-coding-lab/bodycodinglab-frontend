@@ -73,11 +73,11 @@ export const getPost = async (matchId: number, postId: number, accessToken: stri
     }
 }
 
-export const getPostList = async (matchId: number, accessToken: string, page = 0, size = 10): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
+export const getPostList = async (matchId: number, category: string, accessToken: string, page = 0, size = 10): Promise<ResponseDto<PageDto<BoardListResponseDto>>> => {
   try{
       const response = await axiosInstance.get(GET_POST_LIST(matchId), {
         ...bearerAuthorization(accessToken),
-        params: { page, size }
+        params: { category, page, size }
     });
       return responseSuccessHandler(response);
     } catch (error) {
