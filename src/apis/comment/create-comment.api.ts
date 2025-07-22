@@ -4,10 +4,10 @@ import { CREATE_COMMENTS_API } from "../constants";
 import { AxiosError } from "axios";
 import { CommentRequestDto } from "@/dtos/comment/request/comment.request.dto";
 
-export const createCommentRequest = async (boardId: number, dto: CommentRequestDto, accessToken: string): Promise<ResponseDto<void>> => {
+export const createCommentRequest = async (matchId: number, boardId: number, dto: CommentRequestDto, accessToken: string): Promise<ResponseDto<void>> => {
   try {
     const response = await axiosInstance.post(
-      CREATE_COMMENTS_API(boardId),
+      CREATE_COMMENTS_API(matchId, boardId),
       dto,
       bearerAuthorization(accessToken)
     );

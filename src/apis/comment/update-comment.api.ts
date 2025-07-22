@@ -4,10 +4,10 @@ import { UPDATE_COMMENTS_API } from "../constants";
 import { AxiosError } from "axios";
 import { CommentRequestDto } from "@/dtos/comment/request/comment.request.dto";
 
-export const updateCommentRequest = async (boardId: number, commentId: number, dto: CommentRequestDto, accessToken: string): Promise<ResponseDto<void>> => {
+export const updateCommentRequest = async (matchId: number, boardId: number, commentId: number, dto: CommentRequestDto, accessToken: string): Promise<ResponseDto<void>> => {
   try {
     const response = await axiosInstance.put(
-      UPDATE_COMMENTS_API(boardId, commentId),
+      UPDATE_COMMENTS_API(matchId, boardId, commentId),
       dto,
       bearerAuthorization(accessToken)
     );

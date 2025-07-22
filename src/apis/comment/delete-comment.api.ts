@@ -3,10 +3,10 @@ import { axiosInstance, bearerAuthorization, responseErrorHandler, responseSucce
 import { DELETE_COMMENTS_API } from "../constants";
 import { AxiosError } from "axios";
 
-export const deleteCommentRequest = async (boardId: number, commentId: number, accessToken: string): Promise<ResponseDto<void>> => {
+export const deleteCommentRequest = async (matchId: number, boardId: number, commentId: number, accessToken: string): Promise<ResponseDto<void>> => {
   try {
     const response = await axiosInstance.delete(
-      DELETE_COMMENTS_API(boardId, commentId),
+      DELETE_COMMENTS_API(matchId, boardId, commentId),
       bearerAuthorization(accessToken)
     );
     return responseSuccessHandler(response);
