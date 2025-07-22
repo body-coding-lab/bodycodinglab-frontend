@@ -3,32 +3,66 @@ import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./BoardStyle";
 import React, { useEffect, useState } from 'react'
 import BoardCategory from "./BoardCategory";
+import PageNation from "@/utils/PageNation";
+import { getPostList } from "@/apis/board/board.api";
+import { BoardListResponseDto } from "@/dtos/board/response/board-list.response.dto";
+import { useCookies } from "react-cookie";
 
 function Board() {
     const navigate = useNavigate();
     const [ loading, setLoading] = useState(true);
-    // const [ matchId, setMatchId ] = useState<number | null>(null);
-    const matchId = 1;// 테스트용
-    // const [ posts, setPosts ] = useState<BoardPost[]>([]);
-    const { categoryId } = useParams<{ categoryId: string}>();
-    const numericCategoryId = Number(categoryId);
+    const [ posts, setPosts ] = useState<BoardListResponseDto[]>([]);
+    const { categoryName } = useParams<{categoryName: string}>();
     const [ page, setPage ] = useState(0);
     const [ totalPages, setTotalPages ] = useState(1);
-    // const pageNumbers = getPageNumbers(page, totalPages);
+    const pageNumbers = PageNation(page, totalPages);
+    const [cookies, setCookies] = useCookies(["accessToken"]);
+    const {matchId} = useParams<{matchId: string}>();
+    const match = Number(matchId);
 
+    useEffect(() => {
+        if(!categoryName || !match ){
+            setLoading(true);
+            return;
+        }
+        const getPosts = async () => {
+            try {
+                setLoading(true);
+                const token = cookies.accessToken;
+                if (!token) throw new Error("로그인 토큰이 없습니다.");
+
+                const response = await getPostList(match, token, categoryName ,page, 20);
+                if (response.data){
+                    setPosts(response.data.content);
+                    setTotalPages(response.data.totalPages);
+                }
+                
+            } catch (e: any){
+                if(e.status === 403){
+                    alert("해당 게시판에 접근할 수 없습니다.");
+                    navigate("/");
+                } else {
+                    alert("게시글을 가져오지 못했습니다.");
+                }
+            }finally{
+                setLoading(false);
+            };
+        };
+        getPosts();
+    }, [categoryName, match, page]);
     
   return (
     <div>
         <div css={s.body}>
             <div css={s.left}>
-                <BoardCategory categoryId={numericCategoryId} />
+                <BoardCategory category = {categoryName ?? "MEAL"} />
             </div>
             <div css={s.right}>
                 <div css={s.headwrap}>
                     <h1 css={s.head}>
-                        {categoryId === '1' && '식단 '}
-                        {categoryId === '2' && '루틴 '}
-                        {categoryId === '3' && '커뮤니티 '}
+                        {categoryName === 'MEAL' && '식단 '}
+                        {categoryName === 'ROUTINE' && '루틴 '}
+                        {categoryName === 'COMMUNITY' && '커뮤니티 '}
                         게시판
                     </h1>
                 </div>
@@ -46,29 +80,29 @@ function Board() {
                         <span css={s.postWriterSpan}>작성자</span>
                         <span css={s.postDateSpan}>작성일</span>
                     </div>
-                    <button onClick={() => navigate(`/personal-community-boards/${matchId}/${categoryId}/1`)}>게시글 테스트용</button>
-                    {/* {loading ? (
+                    <button onClick={() => navigate(`/personal-community-boards/${matchId}/${categoryName}/1`)}>게시글 테스트용</button>
+                    {loading ? (
                         <div css={s.loading}>로딩 중...</div>
                     ) : posts.length === 0 ? (
                         <div>게시글이 없습니다.</div>
                     ) : (
                         posts.map((post) => (
                             <div 
-                                key={post.id}
+                                key={post.boardId}
                                 css={s.post}
-                                onClick={() => navigate(`/personal-community-boards/${matchId}/${categoryId}/${post.id}`)}
+                                onClick={() => navigate(`/personal-community-boards/${matchId}/${categoryName}/${post.id}`)}
                             >
                                 <div css={s.spans}>
-                                   <span css={s.postIdSpan}>{post.id}</span>
+                                   <span css={s.postIdSpan}>{post.boardId}</span>
                                     <span css={s.postTitleSpan}>{post.title}</span>
                                     <span css={s.postWriterSpan}>{post.writerName}</span>
                                     <span css={s.postDateSpan}>{new Date(post.createdAt).toLocaleDateString()}</span>
                                 </div>
                             </div>
                         ))
-                    )} */}
+                    )}
                 </div>
-                {/* <div css={s.boardBottom}>
+                <div css={s.boardBottom}>
                     <button css={s.pageTextBtn} onClick={() => setPage(p => Math.max(p - 1, 0))} disabled={page === 0}>
                         ◀
                     </button>
@@ -84,7 +118,7 @@ function Board() {
                     <button css={s.pageTextBtn} onClick={() => setPage(p => Math.max(p - 1, 0))} disabled={page === 0}>
                         ▶
                     </button>
-                </div> */}
+                </div>
             </div>
         </div>
     </div>
