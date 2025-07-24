@@ -2,59 +2,51 @@
 import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./PostStyle";
 import React, { useEffect, useMemo, useState } from 'react'
-import { useUserStore } from "@/stores/user.store";
 import BoardCategory from "./BoardCategory";
-import { DELETE_COMMENTS_API } from "@/apis/constants";
+import { BoardDetailResponseDto } from "@/dtos/board/response/board-detail.response.dto";
+import { useCookies } from "react-cookie";
+import { deletePost, getPost } from "@/apis/board/board.api";
+import { createCommentRequest } from "@/apis/comment/create-comment.api";
+import Comment from "./comment/Comment";
+import { deleteCommentRequest } from "@/apis/comment/delete-comment.api";
 
 function Post() {
-  const [matchId, setMatchId] = useState<number | null>(null);
-  const {postId, categoryId} = useParams<{postId: string; categoryId: string}>();
+  const {postId, categoryName} = useParams<{postId: string; categoryName: string}>();
   const [isProfileBoxOpen, setProfileBoxOpen] = useState(false);
   const closeModal = () => setProfileBoxOpen(false);
   const [modalProfilePosition, setProfileModalPosition] = useState({x: 0, y: 0});
   const navigate = useNavigate();
   const [isDeleteBoxOpen, setDeleteBoxOpen] = useState(false);
-  const [post, setPost] = useState<PostDetailData | null>(null);
-  const [usernameMap, setUsernameMap] = useState<Record<string, string>>({});
+  const [post, setPost] = useState<BoardDetailResponseDto | null>(null);
   // const currentUserId = getUserIdFromToken();
   const currentUserId = 1;// 테스트용 
-  const [comments, setComments] = useState<CommentDetailData[]>([]);
   const [newComment, setNewComment] = useState("");
-  const numericCategoryId = Number(categoryId);
   const numericPostId = Number(postId);
-  const allUsernamesLoaded = comments.every(comment => usernameMap.hasOwnProperty(comment.commenterId.toString()));
-  const [profileImageMap, setProfileImageMap] = useState<Record<number, string>>({});
-  const user = useUserStore((state) => state.user);
   const [loadingPost, setLoadingPost] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
   const [loadingUsernames, setLoadingUsernames] = useState(true);
-  const [postImages, setPostImages] = useState<string[]>([]);
-  const profileImageUrl = useMemo(() => {
-    return post?.profileImageUrl
-      ? `http://localhost:8080${post.profileImageUrl}?v=${Date.now()}`
-      : 'default-profile.png';
-  }, [post?.profileImageUrl]);
+  const {matchId} = useParams<{matchId: string}>();
+  const match = Number(matchId);
+  const [cookies, setCookies] = useCookies(["accessToken"]);
+  // const profileImageUrl = useMemo(() => {
+  //   return post?.profileImageUrl
+  //     ? `http://localhost:8080${post.profileImageUrl}?v=${Date.now()}`
+  //     : 'default-profile.png';
+  // }, [post?.profileImageUrl]);
 
-  useEffect(() => {
-    async function fetchMetchId(){
-      const id = await getUserMatchId();
-      setMatchId(id);
-    }
-    fetchMatchId();
-  }, []);
 
   const handleDelete = async () => {
-    if(matchId === null || !postId || !categoryId){
+    if(match === null || !postId || !categoryName){
       alert("필수 정보가 누락되었습니다.");
       return
     }
     try{
-      const token = getAccessTokenFromCookie();
+      const token = cookies.accessToken;
       if(!token){
         alert("로그인이 필요합니다.");
         return;
       }
-      await deletePost(matchId, numericCategoryId, numericPostId, token);
+      await deletePost(match, numericPostId, token);
       setDeleteBoxOpen(false);
       navigate(-1);
     } catch (error){
@@ -69,19 +61,18 @@ function Post() {
   };
 
   useEffect(() => {
-    if(!categoryId || !postId || matchId === null){
+    if(!categoryName || !postId || !match){
       setLoadingPost(true);
       return;
     }
     const fetchPost = async() => {
       try{
-        const token = getAccessTokenFromCookie();
+        const token = cookies.accessToken;
         if(!token) throw new Error("로그인 토큰이 없습니다.");
-        const data = await fetchPostDetail(matchId, numericCategoryId, numericPostId, token);
-        setPostImages(data);
-        if(data.images){
-          const urls = data.images.map((img: {filePath: string}) => `http//localhost:8080${img.filePath}`);
-          setPostImages(urls);
+        const response = await getPost(match, numericPostId, token);
+        
+        if(response.data){
+          setPost(response.data);
         }
       } catch(error){
         alert("게시글을 불러오는데 실패했습니다.");
@@ -90,71 +81,7 @@ function Post() {
       }
     };
     fetchPost();
-  }, [matchId, categoryId, postId]);
-
-  useEffect(() => {
-    if(!post || !post?.writerId) return;
-    async function loadUsername(){
-      try{
-        const writerId = post!.writerId;
-        const data = await fetchUsernames([writerId]);
-        setUsernameMap(prev => ({...prev, ...data}));
-      } catch(error){
-        alert("사용자 이름 불러오기 실패.");
-      }
-    }
-    loadUsername();
-  }, [post])
-
-  useEffect(() => {
-    async function loadComments() {
-      if(!categoryId || !postId || matchId === null){
-        setLoadingComments(true);
-        return;
-      }
-      setLoadingComments(true);
-
-      try{
-        const token = getAccessTokenFromCookie();
-        if(!token) throw new Error("로그인 토큰이 없습니다.");
-        const data = await fetchComments(matchId, numericCategoryId, numericPostId, token);
-        setComments(data);
-      } catch(error){
-        alert("댓글 불러오기 실패.");
-        setLoadingComments([]);
-      } finally{
-        setLoadingComments(false);
-      }
-    }
-    loadComments();
-  }, [matchId, categoryId, postId])
-
-  useEffect(() => {
-    if(!categoryId || !postId || matchId === null){
-      setLoadingUsernames(true);
-      return;
-    }
-
-    async function loadCommentUsernames() {
-      if(comments.length === 0){
-        setLoadingUsernames(false);
-        return;
-      }
-
-      setLoadingUsernames(true);
-
-      try{
-        const uniqueCommenterIds = [...new Set(comments.map(c => c.commenterId.toString()))];
-        const data = await fetchUsernames(uniqueCommenterIds);
-        setUsernameMap(prev => ({...prev, ...data}));
-      } catch(error){
-        alert("댓글 작성자 이름 불러오기 실패.");
-      } finally{
-        setLoadingUsernames(false);
-      }
-    }
-    loadCommentUsernames();
-  }, [comments]); 
+  }, [match, categoryName, postId]);
 
   const handleCommentSubmit = async() => {
     if(!newComment.trim()){
@@ -162,8 +89,8 @@ function Post() {
       return;
     }
     try{
-      const token = getAccessTokenFromCookie();
-      if(!categoryId || !postId || matchId === null){
+      const token = cookies.accessToken;
+      if(!categoryName || !postId || match === null){
         setLoadingComments(true);
         return;
       }
@@ -171,41 +98,19 @@ function Post() {
         alert("로그인이 필요합니다.");
         return;
       }
-      const result = await writeComment(matchId, numericCategoryId, numericPostId, token, newComment);
+      const dto = {content: newComment}
+      await createCommentRequest(numericPostId, dto, token);
 
-      setComments(prev => [...prev, result.data]);
-      setNewComment("");
+      window.location.reload();
     } catch(error){
       alert("댓글 작성 중 오류가 발생했습니다.");
     }
   };
 
-  useEffect(() => {
-    async function loadCommentUserDetails(){
-      if(comments.length === 0) return;
-
-      const uniqueCommenterIds = [...new Set(comments.map(c => c.commenterId))];
-
-      try{
-        const [usernames, profileUrls] = await Promise.all([
-          fetchUsernames(uniqueCommenterIds.map(String)),
-          fetchProfileImageUrls(uniqueCommenterIds)
-        ]);
-        
-        setUsernameMap(prev => ({...prev, ...usernames}));
-        setProfileImageMap(prev => ({...prev, ...profileUrls}));
-      } catch(error){
-        alert("댓글 작성자 정보 불러오기 실패");
-      } finally{
-        setLoadingUsernames(false);
-      }
-    }
-    loadCommentUserDetails();
-  }, [comments]);
-
   const handleDeleteComment = async (commentId: number) => {
     try{
-      await deleteCommentApi(commentId);
+      const token = cookies.accessToken;
+      await deleteCommentRequest(numericPostId, commentId, token);
       alert("댓글이 삭제되었습니다.");
     } catch(error){
       alert("댓글 삭제 실패.");
@@ -221,7 +126,7 @@ function Post() {
     <div>
       <div css={s.body}>
         <div css={s.left}>
-          <BoardCategory categoryId={numericCategoryId} />
+          <BoardCategory category = {categoryName ?? "MEAL"} />
         </div>
         <div css={s.right}>
           <div css={s.postHeader}>
@@ -235,7 +140,7 @@ function Post() {
                 css={s.loginProfile}
               />
               <div css={s.profileSub}>
-                <span>{post.writerId ? usernameMap[post.writerId] ?? post.writerId: "알 수 없음"}</span>
+                <span>{post.writerName ?? "알 수 없음"}</span>
                 <span>{post.createdAt}</span>
               </div>
             </div>
@@ -253,9 +158,9 @@ function Post() {
                     />
                     <div css={s.profileMiddle}>
                       <div css={s.profileUser}>
-                        {post.writerId ? usernameMap[post.writerId] ?? post.writerId: "알 수 없음"}
+                        {post.writerName ?? "알 수 없음"}
                       </div>
-                      <button css={s.s.modalNoteBtn} onClick={() => navigate(`/notes/write?receiver=${post.writerId}`)}>쪽지</button>
+                      <button css={s.modalNoteBtn} onClick={() => navigate(`/notes/write?receiver=${post.writerId}`)}>쪽지</button>
                     </div>
                     <div css={s.searchWriter}>작성글 검색</div>
                     <button css={s.closeBtn} onClick={closeModal}>X</button>
@@ -285,10 +190,10 @@ function Post() {
           <div css={s.postContent}>
             <div css={s.contentText}>
               <div css={s.imageList}>
-                {postImages.map((url, index) => (
+                {post?.boardImages?.map((img, index) => (
                   <img 
                     key={index} 
-                    src={`${url}?v=${Date.now}`} 
+                    src={`http://localhost:8080${img.filePath}?v=${Date.now}`} 
                     alt={`post-img-${index}`} 
                     css={s.postImage}
                     onError={(e) => e.currentTarget.src = '/default-image.png'}
@@ -300,14 +205,14 @@ function Post() {
             <div css={s.postLike}></div>
           </div>
           <div css={s.postFooter}>
-            <div css={s.footer}>
+            {/* <div css={s.footer}>
               <div css={s.likeImage}></div>
               <div>{post.postLike ?? 0}</div>
-            </div>
+            </div> */}
             <div css={s.footerRight}>
               <div css={s.footer}>
                 <div css={s.commentImage}></div>
-                <div>{post.commentCount ?? 0}</div>
+                <div>{post.comments?.length ?? 0}</div>
               </div>
               <div css={s.footer}>
                 <div css={s.viewImage}></div>
@@ -316,15 +221,14 @@ function Post() {
             </div>
           </div>
           <div css={s.comment}>
-            {comments && comments.length > 0 ? (
-              comments.map((comment) => {
-                const commenterIdStr = comment.commenterId.toString();
+            {post?.comments && post.comments.length > 0 ? (
+              post.comments.map((comment) => {
                 return(
                   <Comment
                     key={comment.id}
                     comment={comment}
-                    username={usernameMap[commenterIdStr] ?? `#${commenterIdStr}`}
-                    profileImageUrl={profileImageMap[comment.commenterId] ?? '/default-profile.png'}
+                    username={comment.commenterName ?? "알수없음"}
+                    profileImageUrl={comment.commenterProfileImageUrl ? `http://localhost:8080${comment.commenterProfileImageUrl}` : '/default-profile.png'}
                     onDelete={handleDeleteComment}
                   />
                 );

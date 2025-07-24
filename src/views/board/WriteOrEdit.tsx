@@ -1,30 +1,27 @@
 /** @jsxImportSource @emotion/react */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./WriteorEditStyle";
 import React, { useEffect, useState } from 'react'
 import { jwtDecode } from "jwt-decode";
+import { createPost, updatePost } from "@/apis/board/board.api";
+import { useCookies } from "react-cookie";
 
-function WriteOrEdit({isEdit, data, categoryId, postId}: {isEdit: boolean, data?: GetPostData, categoryId: number, postId?: number}) {
-  const navigate = useNavigate();
-  const [title, setTitle] = useState(data?.title || '');
-  const [content, setContent] = useState(data?.content || '');
-  const [writerId, setWriterId] = useState<number | null>(null);
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [matchId, setMatchId] = useState<number | null>(null);
-  const [viewCount, setViewCount] = useState(0);
-  const [existingImages, setExistingImages] = useState<string[]>(data?.imageUrls || []);
-  const [deletedImageUrls, setDeletedImageUrls] = useState<string[]>([]);
+function WriteOrEdit({isEdit, data, categoryName, postId}: {isEdit: boolean, data?: GetPostData, categoryName: string, postId?: number}) {
+    const navigate = useNavigate();
+    const [title, setTitle] = useState(data?.title || '');
+    const [content, setContent] = useState(data?.content || '');
+    const [writerId, setWriterId] = useState<number | null>(null);
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+    const [viewCount, setViewCount] = useState(0);
+    const [existingImages, setExistingImages] = useState<string[]>(data?.imageUrls || []);
+    const [deletedImageUrls, setDeletedImageUrls] = useState<string[]>([]);
+    const {matchId} = useParams<{matchId: string}>();
+    const match = Number(matchId);
+    const [cookies, setCookies] = useCookies(["accessToken"]);
 
-  useEffect(() => {
-    async function fetchMatchId(){
-        const id = await getUserMatchId();
-        setMatchId(id);
-    }
-    fetchMatchId();
-  },[]);
 
   useEffect(() => {
-    const token = getAccessTokenFromCookie();
+    const token = cookies.accessToken;
     if(token){
         const decoded: any = jwtDecode(token);
         setWriterId(decoded.userId);
@@ -44,7 +41,7 @@ function WriteOrEdit({isEdit, data, categoryId, postId}: {isEdit: boolean, data?
         return;
     }
 
-    const category = {id: categoryId};
+    const category = {id: categoryName};
     const json = JSON.stringify({title, content, category, matchId, writerId, viewCount,
         deletedImageUrls: isEdit ? deletedImageUrls : undefined
     });
@@ -54,15 +51,16 @@ function WriteOrEdit({isEdit, data, categoryId, postId}: {isEdit: boolean, data?
         formData.append('files', file);
     });
 
+    const token = cookies.accessToken;
     try{
         if(isEdit){
             if (!postId) throw new Error("postId가 필요합니다.");
-            await editPost(matchId, categoryId, formData, postId, token)
+            await updatePost(matchId, postId, formData, token)
         } else {
-            await writePost(matchId, categoryId, formData, token)
+            await createPost(matchId, formData, token)
         }
         alert (isEdit ? '수정 완료.' : '작성 완료.');
-        navigate(`/personal-community-boards/${matchId}/${categoryId}`);
+        navigate(`/personal-community-boards/${matchId}/${categoryName}`);
     } catch (error) {
         alert('오류가 발생했습니다.');
     }

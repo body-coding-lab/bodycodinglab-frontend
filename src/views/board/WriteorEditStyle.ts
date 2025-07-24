@@ -23,6 +23,13 @@ export const right = css`
     flex-direction: column;
 `;
 
+export const head = css`
+    width: 90%;
+    margin-right: auto;
+    color: #437BC0;
+    margin-bottom: 3px;
+`
+
 export const headWrap = css`
     width: 90%;
 `;
