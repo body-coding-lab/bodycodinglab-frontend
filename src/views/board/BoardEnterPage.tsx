@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import * as s from "./BoardEnterPageStyle";
 import React, { useEffect, useState } from 'react'
 import { useCookies } from "react-cookie";
+import { GetUserMatchListRequest } from "@/apis/match/get-user-matchList.api";
 
 interface MatchInfo{
     matchId: number;
     role: "MEMBER" | "TRAINER" | "ADMIN";
-    memberName: string;
-    memberGender: 'MALE' | 'FEMALE';
-    memberAge: number;
+    name: string;
+    gender: 'MALE' | 'FEMALE';
+    age: number;
 }
 
 function BoardTrainerPage() {
@@ -27,8 +28,16 @@ function BoardTrainerPage() {
                 setLoading(false);
                 return;
             }
-            const response = await `API`;
-            if (response) setMatchList(response);
+            try{
+                 const response = await GetUserMatchListRequest(token);
+                if (response && response.data) {
+                    setMatchList(response.data);
+                }else{
+                    alert('매칭 정보를 불러올 수 없습니다.');
+                }
+            } catch(e){
+                alert('오류가 발생했습니다.');
+            }
             setLoading(false);
         };
         fetchMatchList();
@@ -48,13 +57,13 @@ function BoardTrainerPage() {
             matchList.map((match) => match.role === "MEMBER" ? (
                     <div key={match.matchId} css={s.boardList}>
                         <p>담당 트레이너</p>
-                        <p><strong>{match.memberName}이름</strong> ({match.memberAge}세 | {match.memberGender === 'MALE' ? '남' : '여'})</p>
+                        <p><strong>{match.name}이름</strong> ({match.age}세 | {match.gender === 'MALE' ? '남' : '여'})</p>
                         <button onClick={() => handleSelect(match.matchId)}>게시판 입장</button>
                     </div>
                 ) : (
                     <div key={match.matchId} css={s.boardList}>
                         <p>담당 회원</p>
-                        <p><strong>{match.memberName}이름</strong> ({match.memberAge}세 | {match.memberGender === 'MALE' ? '남' : '여'})</p>
+                        <p><strong>{match.name}이름</strong> ({match.age}세 | {match.gender === 'MALE' ? '남' : '여'})</p>
                         <button onClick={() => handleSelect(match.matchId)}>게시판 입장</button>
                     </div>
                 ))

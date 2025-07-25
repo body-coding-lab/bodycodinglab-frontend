@@ -6,15 +6,23 @@ import BoardCategory from "./BoardCategory";
 import { useCookies } from "react-cookie";
 import { getPost } from "@/apis/board/board.api";
 import WriteOrEdit from "./WriteOrEdit";
+
+interface FormData {
+  postId: number;
+  title: string;
+  content: string;
+}
+
 function PostEdit() {
     const {categoryName, postId} = useParams<{categoryName: string; postId: string}>();
     const parsedPostId = postId ? parseInt(postId, 10) : undefined;
-    const [formData, setFormData] = useState(true);
     const [loading, setLoading] = useState(true);
     const {matchId} = useParams<{matchId: string}>();
     const match = Number(matchId);
     const [cookies, setCookies] = useCookies(["accessToken"]);
-    
+    const numericPostId = Number(postId);
+    const [formData, setFormData] = useState<FormData | null>(null);
+
     useEffect(() => {
         if(!categoryName || !postId || matchId === null){
             setLoading(true);
@@ -26,14 +34,21 @@ function PostEdit() {
                 const token = cookies.accessToken;
                 if(!token) throw new Error("로그인 토큰이 없습니다.");
 
-                const post = await getPost(match, Number(postId), token);
+                const response = await getPost(match, numericPostId, token);
+                
+
+                if (!response || !response.data) {
+                     throw new Error("게시글 데이터가 없습니다.");
+                }
+
+                const post = response.data;
 
                 setFormData({
                     postId: parsedPostId!,
                     title: post.title,
                     content: post.content,
                 });
-            } catch(err) {
+            } catch(e) {
                 alert('게시글을 불러오지 못했습니다.');
             } finally {
                 setLoading(false);
@@ -49,7 +64,7 @@ function PostEdit() {
             <div css={s.left}>
                 <BoardCategory category = {categoryName ?? "MEAL"} />
             </div>
-            <WriteOrEdit isEdit={true} data={formData} categoryName={categoryName} postId={parsedPostId}} />
+            <WriteOrEdit isEdit={true} data={formData} categoryName={categoryName ?? "MEAL"} postId={parsedPostId} />
         </div>
     </div>
   )

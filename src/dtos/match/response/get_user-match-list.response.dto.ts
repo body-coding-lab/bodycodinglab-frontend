@@ -1,5 +1,5 @@
 type UserRole = "MEMBER" | "TRAINER" | "ADMIN";
-type Gender = "MALE" | "FEMAIL";
+type Gender = "MALE" | "FEMALE";
 
 export interface GetUserMatchListResponseDto{
   matchId: number;

@@ -23,7 +23,7 @@ const convertToFormData = (dto: BoardRequestDto): FormData => {
   return formData;
 };
 
-export const crestePost = async (matchId: number, dto: BoardRequestDto, accessToken: string): Promise<ResponseDto<BoardDetailResponseDto>> => {
+export const createPost = async (matchId: number, dto: BoardRequestDto, accessToken: string): Promise<ResponseDto<BoardDetailResponseDto>> => {
   try{
     const formData = convertToFormData(dto);
     const response = await axiosInstance.post(CREATE_POST(matchId), formData, {

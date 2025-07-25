@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { jwtDecode } from "jwt-decode";
 import { createPost, updatePost } from "@/apis/board/board.api";
 import { useCookies } from "react-cookie";
+import { BoardRequestDto } from "@/dtos/board/request/board.request.dto";
 
 function WriteOrEdit({isEdit, data, categoryName, postId}: {isEdit: boolean, data?: GetPostData, categoryName: string, postId?: number}) {
     const navigate = useNavigate();
@@ -41,26 +42,24 @@ function WriteOrEdit({isEdit, data, categoryName, postId}: {isEdit: boolean, dat
         return;
     }
 
-    const category = {id: categoryName};
-    const json = JSON.stringify({title, content, category, matchId, writerId, viewCount,
-        deletedImageUrls: isEdit ? deletedImageUrls : undefined
-    });
-    const formData = new FormData();
-    formData.append('data', new Blob([json], {type: 'application/json'}));
-    selectedFiles.forEach((file) => {
-        formData.append('files', file);
-    });
+    const dto: BoardRequestDto = {
+    category: categoryName,
+    title,
+    content,
+    files: selectedFiles,
+    ...(isEdit && { deletedImageUrls }),
+  };
 
     const token = cookies.accessToken;
     try{
         if(isEdit){
             if (!postId) throw new Error("postId가 필요합니다.");
-            await updatePost(matchId, postId, formData, token)
+            await updatePost(match, postId, dto, token)
         } else {
-            await createPost(matchId, formData, token)
+            await createPost(match, dto, token)
         }
         alert (isEdit ? '수정 완료.' : '작성 완료.');
-        navigate(`/personal-community-boards/${matchId}/${categoryName}`);
+        navigate(`/personal-community-boards/${match}/${categoryName}`);
     } catch (error) {
         alert('오류가 발생했습니다.');
     }

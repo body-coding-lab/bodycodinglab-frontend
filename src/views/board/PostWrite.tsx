@@ -3,17 +3,17 @@ import { useParams } from "react-router-dom";
 import * as s from "./WriteorEditStyle";
 import React from 'react'
 import BoardCategory from "./BoardCategory";
+import WriteOrEdit from "./WriteOrEdit";
 
 function PostWrite() {
-    const {categoryId} = useParams<{categoryId: string}>();
-    const parsedCategoryId = parseInt(categoryId || '1', 10);
+    const {categoryName} = useParams<{categoryName: string}>();
   return (
     <div>
         <div css={s.body}>
             <div css={s.left}>
-                <BoardCategory categoryId={parsedCategoryId} />
+                <BoardCategory category={categoryName ?? "MEAL"} />
             </div>
-            <WriteOrEdit isEdit={false} categoryId={parsedCategoryId} />
+            <WriteOrEdit isEdit={false} categoryName={categoryName ?? "MEAL"} />
         </div>
     </div>
   )

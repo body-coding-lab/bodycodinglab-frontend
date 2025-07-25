@@ -25,7 +25,7 @@ function Board() {
             setLoading(true);
             return;
         }
-        const getPosts = async () => {
+        const getPosts = async () => { 
             try {
                 setLoading(true);
                 const token = cookies.accessToken;
@@ -90,7 +90,7 @@ function Board() {
                             <div 
                                 key={post.boardId}
                                 css={s.post}
-                                onClick={() => navigate(`/personal-community-boards/${matchId}/${categoryName}/${post.id}`)}
+                                onClick={() => navigate(`/personal-community-boards/${matchId}/${categoryName}/${post.boardId}`)}
                             >
                                 <div css={s.spans}>
                                    <span css={s.postIdSpan}>{post.boardId}</span>

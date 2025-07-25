@@ -4,7 +4,7 @@ import * as s from "./BoardCategoryStyle";
 import { useNavigate, useParams } from 'react-router-dom';
 
 function BoardCategory({category}: {category: string}) {
-    const {matchId} = useParams<{matchId: string}>;
+    const {matchId} = useParams<{matchId: string}>();
     
     const navigate = useNavigate();
 
@@ -19,9 +19,9 @@ function BoardCategory({category}: {category: string}) {
         </div>
         <nav css={s.category}>
             <div css={s.categorys}>
-                <div css={(category === 'MEAL' ? s.useCategoryDivs : s.categoryDivs)} onClick={() => handleNavigate(1)}>식단</div>
-                <div css={(category === 'ROUTINE' ? s.useCategoryDivs : s.categoryDivs)} onClick={() => handleNavigate(2)}>루틴</div>
-                <div css={(category === 'COMMUNITY' ? s.useCategoryDivs : s.categoryDivs)} onClick={() => handleNavigate(3)}>커뮤니티</div>
+                <div css={(category === 'MEAL' ? s.useCategoryDivs : s.categoryDivs)} onClick={() => handleNavigate('MEAL')}>식단</div>
+                <div css={(category === 'ROUTINE' ? s.useCategoryDivs : s.categoryDivs)} onClick={() => handleNavigate('ROUTINE')}>루틴</div>
+                <div css={(category === 'COMMUNITY' ? s.useCategoryDivs : s.categoryDivs)} onClick={() => handleNavigate('COMMUNITY')}>커뮤니티</div>
             </div>
         </nav>
     </div>
