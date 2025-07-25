@@ -18,8 +18,7 @@ function Post() {
   const navigate = useNavigate();
   const [isDeleteBoxOpen, setDeleteBoxOpen] = useState(false);
   const [post, setPost] = useState<BoardDetailResponseDto | null>(null);
-  // const currentUserId = getUserIdFromToken();
-  const currentUserId = 1;// 테스트용 
+  const currentUserId = getUserIdFromToken();
   const [newComment, setNewComment] = useState("");
   const numericPostId = Number(postId);
   const [loadingPost, setLoadingPost] = useState(true);
@@ -28,11 +27,6 @@ function Post() {
   const {matchId} = useParams<{matchId: string}>();
   const match = Number(matchId);
   const [cookies, setCookies] = useCookies(["accessToken"]);
-  // const profileImageUrl = useMemo(() => {
-  //   return post?.profileImageUrl
-  //     ? `http://localhost:8080${post.profileImageUrl}?v=${Date.now()}`
-  //     : 'default-profile.png';
-  // }, [post?.profileImageUrl]);
 
 
   const handleDelete = async () => {
@@ -99,7 +93,7 @@ function Post() {
         return;
       }
       const dto = {content: newComment}
-      await createCommentRequest(numericPostId, dto, token);
+      await createCommentRequest(match, numericPostId, dto, token);
 
       window.location.reload();
     } catch(error){
@@ -110,7 +104,7 @@ function Post() {
   const handleDeleteComment = async (commentId: number) => {
     try{
       const token = cookies.accessToken;
-      await deleteCommentRequest(numericPostId, commentId, token);
+      await deleteCommentRequest(match, numericPostId, commentId, token);
       alert("댓글이 삭제되었습니다.");
     } catch(error){
       alert("댓글 삭제 실패.");
@@ -132,7 +126,7 @@ function Post() {
           <div css={s.postHeader}>
             <div onClick={handleProfileClick} css={s.profile}>
               <img 
-                src={profileImageUrl} 
+                src='/default-profile.png' 
                 alt="profile"
                 onError={(e) => {
                   e.currentTarget.src = '/default-profile.png';
@@ -149,7 +143,7 @@ function Post() {
                 <div css={s.modalOverlay} onClick={closeModal}>
                   <div css={s.profileModal(modalProfilePosition.x, modalProfilePosition.y)} onClick={(e) => e.stopPropagation()}>
                     <img 
-                      src={profileImageUrl} 
+                      src='/default-profile.png' 
                       alt="profile"
                       onError={(e) => {
                         e.currentTarget.src = '/default-profile.png';
@@ -227,7 +221,7 @@ function Post() {
                   <Comment
                     key={comment.id}
                     comment={comment}
-                    username={comment.commenterName ?? "알수없음"}
+                    commenterName={comment.commenterName ?? "알수없음"}
                     profileImageUrl={comment.commenterProfileImageUrl ? `http://localhost:8080${comment.commenterProfileImageUrl}` : '/default-profile.png'}
                     onDelete={handleDeleteComment}
                   />

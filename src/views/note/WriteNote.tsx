@@ -2,6 +2,10 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import * as s from "./NoteListStyle";
 import React, { useEffect, useState } from 'react'
+import { useCookies } from "react-cookie";
+import { getUserIdFromToken } from "@/apis/getUserIdFromToken";
+import { PostNoteRequest } from "@/apis/note/post-note.api";
+import { PostNoteRequestDto } from "@/dtos/note/request/post-note.request.dto";
 
 function WriteNote() {
     const [searchParams] = useSearchParams();
@@ -11,6 +15,8 @@ function WriteNote() {
     const navigate = useNavigate();
     const [userMap, setUserMap] = useState<Record<number, string>>({});
     const [profileImageMap, setProfileImageMap] = useState<Record<number, string>>({});
+    const [cookies, setCookies] = useCookies(["accessToken"]);
+
     const handleCheckId = async () => {
         const id = Number(receiverInput);
         if(!id || isNaN(id)){
@@ -22,21 +28,21 @@ function WriteNote() {
             alert("자기 자신에게는 쪽지를 보낼 수 없습니다.");
             return;
         }
-        try{
-            const map = await fetchUsernames([id]);
-            const username = map[id];
-            if(username){
-                setReceiver(id);
-                setUserMap(prev => ({...prev,[id]: username}));
+        // try{
+        //     const map = await fetchUsernames([id]);
+        //     const username = map[id];
+        //     if(username){
+        //         setReceiver(id);
+        //         setUserMap(prev => ({...prev,[id]: username}));
 
-                const profileUrls = await fetchProfileImageUrls([id]);
-                setProfileImageMap(prev => ({...prev, ...profileUrls}));
-            } else{
-                alert("존재하지 않는 사용자입니다.");
-            }
-        } catch(error){
-            alert("ID 확인 중 오류가 발생했습니다.");
-        }
+        //         const profileUrls = await fetchProfileImageUrls([id]);
+        //         setProfileImageMap(prev => ({...prev, ...profileUrls}));
+        //     } else{
+        //         alert("존재하지 않는 사용자입니다.");
+        //     }
+        // } catch(error){
+        //     alert("ID 확인 중 오류가 발생했습니다.");
+        // }
     };
 
     useEffect(() => {
@@ -58,10 +64,15 @@ function WriteNote() {
             return
         }
         try{
-            const token = getAccessTokenFromCookie();
+            const token = cookies.accessToken;
             if(!token)throw new Error("토큰이 없습니다.");
 
-            await WriteNote(noteText, receiverId, token);
+            const dto: PostNoteRequestDto = {
+                noteText,
+                noteReceiver: receiverId,
+            };
+
+            await PostNoteRequest(token, dto );
 
             alert("쪽지가 성공적으로 전송되었습니다.");
             navigate('/notes/sent');

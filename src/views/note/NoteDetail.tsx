@@ -2,6 +2,9 @@
 import { useNavigate, useParams } from "react-router-dom";
 import * as s from "./NoteListStyle";
 import React, { useEffect, useState } from 'react'
+import { getUserIdFromToken } from "@/apis/getUserIdFromToken";
+import { useCookies } from "react-cookie";
+import { GetNoteRequest } from "@/apis/note/get-note.api";
 
 function NoteDetail() {
     const navigate = useNavigate();
@@ -12,22 +15,23 @@ function NoteDetail() {
     const [profileImageMap, setProfileImageMap] = useState<Record<number, string>>({});
     const userId = getUserIdFromToken();
     const isWriter = userId === note.noteWriter;
+    const [cookies, setCookies] = useCookies(["accessToken"]);
 
     useEffect(() => {
         if(!noteId)return;
 
         const fetchNote = async() => {
             try{
-                const token = getAccessTokenFromCookie();
+                const token = cookies.accessToken;
                 if(!token) throw new Error("토큰이 없습니다");
 
-                const data = await getNote(Number(noteId), token);
-                setNote(data);
-                const userIds: number[] = [data.noteWriter, data.noteReceiver];
-                const userMapData = await fetchUsernames(userIds);
-                const profileUrls = await fetchProfileImageUrls(userIds);
-                setProfileImageMap(profileUrls);
-                setUserMap(userMapData)
+                const response = await GetNoteRequest(token, Number(noteId));
+                setNote(response);
+                const userIds: number[] = [response.data?.noteWriterName!, response.data?.noteReceiverName!];
+                // const userMapData = await fetchUsernames(userIds);
+                // const profileUrls = await fetchProfileImageUrls(userIds);
+                // setProfileImageMap(profileUrls);
+                // setUserMap(userMapData)
             } catch(error){
                 alert("쪽지를 불러오지 못했습니다.");
             } finally{
@@ -49,7 +53,7 @@ function NoteDetail() {
                 {isWriter ? (
                     <div css={s.profileDetail}>
                         <img 
-                            css={s.profilteImage}
+                            css={s.profileImage}
                             src={profileImageMap[note.noteReceiver] || "default-profule.png"}
                             alt="받은 사람 프로필"
                             onError={(e) => {e.currentTarget.src = "/default-prifule.png"}} 
@@ -59,7 +63,7 @@ function NoteDetail() {
                 ) : (
                     <div css={s.profileDetail}>
                         <img 
-                            css={s.profilteImage}
+                            css={s.profileImage}
                             src={profileImageMap[note.noteWriter] || "default-profule.png"}
                             alt="보낸 사람 프로필"
                             onError={(e) => {e.currentTarget.src = "/default-prifule.png"}} 

@@ -2,36 +2,41 @@
 import { useNavigate } from "react-router-dom";
 import * as s from "./NoteListStyle";
 import React, { useEffect, useState } from 'react'
+import PageNation from "@/utils/PageNation";
+import { useCookies } from "react-cookie";
+import { GetNoteListResponseDto } from "@/dtos/note/response/get-noteList.response.dto";
+import { GetSentNoteRequest } from "@/apis/note/get-sent-note.api";
 
 function SentNotes() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [notes, setNotes] = useState<NoteList[]>([]);
+    const [notes, setNotes] = useState<GetNoteListResponseDto[]>([]);
     const [userMap, setUserMap] = useState<Record<number, string>>({})
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
-    const pageNumbers = getPageNumbers(page, totalPages);
+    const pageNumbers = PageNation(page, totalPages);
+    const [cookies, setCookies] = useCookies(["accessToken"]);
   
     useEffect(() => {
         const fetchNotes = async () => {
             setLoading(true);
             try{
-                const token = getAccessTokenFromCookie();
+                const token = cookies.accessToken;
                 if(!token) throw new Error("로그인 토큰이 없습니다.");
 
-                const data = await SentNotes(token, page, 20);
-                setNotes(data.content);
-                setTotalPages(data.totalPages);
+                const response = await GetSentNoteRequest(token, page, 20);
+                setNotes(response.data ?? []);
+                setTotalPages(1);
 
-                try{
-                    const userIds: number[] = Array.from(new Set(
-                        data.content.flatMap((note: NoteList) => [note.noteWriter, note.noteReceiver])
-                    ));
-                    const userMapData = await fetchUsernames(userIds);
-                    setUserMap(userMapData);
-                } catch(error){
-                    alert("유저 이름 불러오기 실패.");
-                }
+                // try{
+                //     const userIds: number[] = Array.from(new Set(
+                //         data.content.flatMap((note: NoteList) => [note.noteWriter, note.noteReceiver])
+                //     ));
+                //     const userMapData = await fetchUsernames(userIds);
+                //     setUserMap(userMapData);
+                // } catch(error){
+                //     alert("유저 이름 불러오기 실패.");
+                // }
             } catch(error){
                 alert("쪽지를 가져오지 못했습니다.");
             } finally{
@@ -66,8 +71,8 @@ function SentNotes() {
                         <div css={s.spans}>
                             <span css={s.noteIdSpan}>{note.id}</span>
                             <span css={s.noteContentSpan}>{note.noteText}</span>
-                            <span css={s.noteWriterSpan}>{userMap[note.noteWriter]}</span>
-                            <span css={s.noteReceiverSpan}>{userMap[note.noteReceiver]}</span>
+                            <span css={s.noteWriterSpan}>{userMap[note.noteWriterName]}</span>
+                            <span css={s.noteReceiverSpan}>{userMap[note.noteReceiverName]}</span>
                             <span css={s.noteDateSpan}>{new Date(note.noteCreateTime).toLocaleDateString()}</span>
                         </div>
                     </div>

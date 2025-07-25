@@ -4,4 +4,4 @@ export interface GetNoteListResponseDto{
     noteWriterName: number;
     noteReceiverName: number;
     noteCreateTime: string;
-}
+} 
